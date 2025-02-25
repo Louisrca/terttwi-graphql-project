@@ -84,6 +84,6 @@ export const typeDefs = gql`
     me(id: String!): User
     getPosts: [Post]
     getPost(id: String!): Post
-    getPostsByUser(userId: String!): [Post]
+    getPostsByUser(token: String!): [Post]
   }
 `;
