@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import { User } from "@prisma/client";
 
@@ -10,6 +10,22 @@ export const createJWT = (user: User) => {
     process.env.JWT_SECRET as string
   );
   return token;
+};
+
+export const verifyJWT = (token: string) => {
+  try {
+    const verifyToken = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    ) as JwtPayload;
+    return {
+      id: verifyToken.id,
+      username: verifyToken.username,
+    };
+  } catch {
+    console.error("Invalid or expired token:", token);
+    return null;
+  }
 };
 
 export const getUser = (token: string): AuthenticatedUser | null => {
