@@ -106,7 +106,20 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
+  getPost?: Maybe<Post>;
+  getPosts?: Maybe<Array<Maybe<Post>>>;
+  getPostsByUser?: Maybe<Array<Maybe<Post>>>;
   me?: Maybe<User>;
+};
+
+
+export type QueryGetPostArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGetPostsByUserArgs = {
+  userId: Scalars['String']['input'];
 };
 
 
@@ -302,6 +315,9 @@ export type PostResolvers<ContextType = Context, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
+  getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
+  getPostsByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsByUserArgs, 'userId'>>;
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryMeArgs, 'id'>>;
 };
 
