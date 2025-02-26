@@ -188,6 +188,7 @@ export type Query = {
   getCommentByUser?: Maybe<Array<Maybe<Comment>>>;
   getComments?: Maybe<Array<Maybe<Comment>>>;
   getPost?: Maybe<Post>;
+  getPostByAuthor?: Maybe<Array<Maybe<Post>>>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
   getPostsByPopularity?: Maybe<Array<Maybe<Post>>>;
   getPostsByUser?: Maybe<Array<Maybe<Post>>>;
@@ -207,6 +208,11 @@ export type QueryGetCommentByUserArgs = {
 
 export type QueryGetPostArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryGetPostByAuthorArgs = {
+  author: Scalars['String']['input'];
 };
 
 
@@ -483,6 +489,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   getCommentByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QueryGetCommentByUserArgs, 'token'>>;
   getComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
+  getPostByAuthor?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostByAuthorArgs, 'author'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getPostsByPopularity?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, Partial<QueryGetPostsByPopularityArgs>>;
   getPostsByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsByUserArgs, 'token'>>;

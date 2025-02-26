@@ -8,6 +8,7 @@ import {
   getPost,
   getPostsByUser,
   getPostsByPopularity,
+  getPostByAuthor
 } from "./domain/posts/query.js";
 import {
   getComment,
@@ -31,6 +32,7 @@ export const resolvers: Resolvers = {
     getComment,
     getCommentByUser,
     getPostsByPopularity,
+    getPostByAuthor,
   },
 
   Post: {
