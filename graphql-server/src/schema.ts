@@ -80,10 +80,6 @@ export const typeDefs = gql`
     ): CreatePostResponse
   }
 
-  type Test {
-    id: ID!
-  }
-
   type Query {
     me(id: String!): User
     getPosts: [Post]
