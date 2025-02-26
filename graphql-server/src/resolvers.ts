@@ -3,12 +3,14 @@ import { createUser } from "./mutations/users/createUser.js";
 import { signIn } from "./mutations/users/signIn.js";
 import { createPost } from "./mutations/posts/createPost.js";
 import { me } from "./query/users/user.js";
-import { getPosts } from "./query/posts/posts.js";
+import { getPosts, getPost, getPostsByUser } from "./query/posts/posts.js";
 
 export const resolvers: Resolvers = {
   Query: {
     me,
     getPosts,
+    getPost,
+    getPostsByUser,
   },
 
   Post: {
