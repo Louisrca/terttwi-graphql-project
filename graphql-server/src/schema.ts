@@ -27,6 +27,11 @@ export const typeDefs = gql`
     post: Post
     postId: ID!
   }
+    
+  type User {
+    id: ID!
+    username: String!
+  }
 
   type CreateUserResponse {
     code: Int!
@@ -49,11 +54,25 @@ export const typeDefs = gql`
     comment: Comment
   }
 
+  type CreateLikeResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    like: Like
+  }
+
   type UpdateCommentResponse {
     code: Int!
     success: Boolean!
     message: String!
     comment: Comment
+  }
+
+  type UpdatePostResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    post: Post
   }
 
   type DeletePostResponse {
@@ -68,13 +87,6 @@ export const typeDefs = gql`
     message: String!
   }
 
-  type CreateLikeResponse {
-    code: Int!
-    success: Boolean!
-    message: String!
-    like: Like
-  }
-
   type DeleteLikeResponse {
     code: Int!
     success: Boolean!
@@ -86,11 +98,6 @@ export const typeDefs = gql`
     success: Boolean!
     message: String!
     token: String
-  }
-
-  type User {
-    id: ID!
-    username: String!
   }
 
   type Mutation {
@@ -120,6 +127,13 @@ export const typeDefs = gql`
     createLike(postId: ID!, token: String!): CreateLikeResponse
 
     deleteLike(id: ID!, token: String!): DeleteLikeResponse
+
+    updatePost(
+      id: ID!
+      title: String!
+      content: String!
+      token: String!
+    ): UpdatePostResponse
   }
 
   type Query {
