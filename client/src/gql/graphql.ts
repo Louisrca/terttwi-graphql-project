@@ -272,6 +272,10 @@ export type CreateLikeMutationVariables = Exact<{
   token: Scalars['String']['input'];
 }>;
 
+export type CreatePostMutationVariables = Exact<{
+  token: Scalars['String']['input'];
+  content: Scalars['String']['input'];
+}>;
 
 export type CreateLikeMutation = { __typename?: 'Mutation', createLike?: { __typename?: 'CreateLikeResponse', success: boolean, like?: { __typename?: 'Like', id: string } | null } | null };
 
