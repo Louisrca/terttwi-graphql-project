@@ -56,6 +56,12 @@ export const typeDefs = gql`
     like: Like
   }
 
+  type DeletePostResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+  }
+
   type SignInResponse {
     code: Int!
     success: Boolean!
@@ -85,10 +91,8 @@ export const typeDefs = gql`
       token: String!
       postId: ID!
     ): CreateCommentResponse!
-    createLike(
-      postId: ID!
-      token: String!
-    ): CreateLikeResponse
+    createLike(postId: ID!, token: String!): CreateLikeResponse
+    deletePost(id: ID!, token: String!): DeletePostResponse
   }
 
   type Query {

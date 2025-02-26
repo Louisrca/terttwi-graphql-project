@@ -22,23 +22,24 @@ model Post {
   title    String?
   content  String
   userId   String
-  user     User      @relation(fields: [userId], references: [id])
+  user     User      @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   comments Comment[]
   likes    Like[]
 }
+
 model Comment {
   id      String @id @unique @default(uuid())
   content String
   postId  String
   userId  String
-  post    Post   @relation(fields: [postId], references: [id])
-  user    User   @relation(fields: [userId], references: [id])
+  post    Post   @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
 
 model Like {
   id     String @id @unique @default(uuid())
   postId String
   userId String
-  post   Post   @relation(fields: [postId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
