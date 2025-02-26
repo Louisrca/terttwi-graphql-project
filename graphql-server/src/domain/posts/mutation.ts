@@ -56,3 +56,72 @@ export const createPost: MutationResolvers["createPost"] = async (
     };
   }
 };
+
+export const deletePost: MutationResolvers["deletePost"] = async (
+  _,
+  { id, token },
+  { dataSources }
+) => {
+  try {
+    if (!token) {
+      return {
+        code: 401,
+        success: false,
+        message: "No token provided",
+      };
+    }
+
+    const user = verifyJWT(token);
+
+    if (!user) {
+      return {
+        code: 401,
+        success: false,
+        message: "Unauthorized",
+      };
+    }
+
+    const post = await dataSources.db.post.findUnique({
+      where: { id },
+    });
+
+    if (!post) {
+      return {
+        code: 404,
+        success: false,
+        message: "Post not found",
+      };
+    }
+
+    if (post.userId !== user.id) {
+      return {
+        code: 401,
+        success: false,
+        message: "Unauthorized",
+      };
+    }
+
+    await dataSources.db.post.delete({
+      where: { id },
+    });
+
+    return {
+      code: 200,
+      success: true,
+      message: "Post deleted successfully",
+    };
+  } catch (error) {
+    if (error instanceof PrismaClientKnownRequestError) {
+      return {
+        code: 400,
+        success: false,
+        message: error.message,
+      };
+    }
+    return {
+      code: 500,
+      success: false,
+      message: "Internal server error",
+    };
+  }
+};

@@ -1,11 +1,15 @@
 import { Resolvers } from "./types";
 import { createUser } from "./domain/users/createUser.js";
 import { signIn } from "./domain/users/signIn.js";
-import { createPost } from "./domain/posts/mutation.js";
+import { createPost, deletePost } from "./domain/posts/mutation.js";
 import { me } from "./domain/users/query.js";
 import { getPosts, getPost, getPostsByUser } from "./domain/posts/query.js";
 import { createComment } from "./domain/comments/mutation.js";
-import { getComment, getComments, getCommentByUser } from "./domain/comments/query.js";
+import {
+  getComment,
+  getComments,
+  getCommentByUser,
+} from "./domain/comments/query.js";
 import { createLike } from "./domain/likes/mutation.js";
 
 export const resolvers: Resolvers = {
@@ -30,14 +34,12 @@ export const resolvers: Resolvers = {
         where: { postId: parent.id },
       });
     },
-    
-    likes: async(parent,_,{dataSources}  )=>{
+
+    likes: async (parent, _, { dataSources }) => {
       return await dataSources.db.like.count({
         where: { postId: parent.id },
       });
-  
-    
-    }
+    },
   },
   Comment: {
     user: async (parent, _, { dataSources }) => {
@@ -53,5 +55,6 @@ export const resolvers: Resolvers = {
     createPost,
     createComment,
     createLike,
+    deletePost,
   },
 };
