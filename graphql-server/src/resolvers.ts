@@ -1,7 +1,7 @@
 import { Resolvers } from "./types";
 import { createUser } from "./domain/users/createUser.js";
 import { signIn } from "./domain/users/signIn.js";
-import { createPost, deletePost } from "./domain/posts/mutation.js";
+import { createPost, deletePost, updatePost } from "./domain/posts/mutation.js";
 import { me } from "./domain/users/query.js";
 import { getPosts, getPost, getPostsByUser } from "./domain/posts/query.js";
 import {
@@ -9,7 +9,11 @@ import {
   getComments,
   getCommentByUser,
 } from "./domain/comments/query.js";
-import { createComment, deleteComment, updateComment } from "./domain/comments/mutation.js";
+import {
+  createComment,
+  deleteComment,
+  updateComment,
+} from "./domain/comments/mutation.js";
 import { createLike, deleteLike } from "./domain/likes/mutation.js";
 
 export const resolvers: Resolvers = {
@@ -59,5 +63,6 @@ export const resolvers: Resolvers = {
     updateComment,
     deleteComment,
     deleteLike,
+    updatePost,
   },
 };
