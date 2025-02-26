@@ -143,5 +143,6 @@ export const typeDefs = gql`
     getComment(id: String!): Comment
     getCommentByUser(token: String!): [Comment]
     getPostsByPopularity(isAsc: Boolean): [Post]
+    getPostByAuthor(author: String!): [Post]
   }
 `;

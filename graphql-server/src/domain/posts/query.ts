@@ -59,3 +59,16 @@ export const getPostsByPopularity: QueryResolvers["getPostsByPopularity"] =
 
     return posts;
   };
+export const getPostByAuthor: QueryResolvers["getPostByAuthor"] = async (
+  _,
+  { author },
+  { dataSources }
+) => {
+  return await dataSources.db.post.findMany({
+    where:{
+      user:{
+        username:{contains: author}, 
+      }
+    }
+  })
+}
