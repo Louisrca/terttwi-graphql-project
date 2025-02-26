@@ -1,9 +1,9 @@
 import { Resolvers } from "./types";
-import { createUser } from "./mutations/users/createUser.js";
-import { signIn } from "./mutations/users/signIn.js";
-import { createPost } from "./mutations/posts/createPost.js";
-import { me } from "./query/users/user.js";
-import { getPosts, getPost, getPostsByUser } from "./query/posts/posts.js";
+import { createUser } from "./domain/users/createUser.js";
+import { signIn } from "./domain/users/signIn.js";
+import { createPost } from "./domain/posts/mutation.js";
+import { me } from "./domain/users/query.js";
+import { getPosts, getPost, getPostsByUser } from "./domain/posts/query.js";
 
 export const resolvers: Resolvers = {
   Query: {
