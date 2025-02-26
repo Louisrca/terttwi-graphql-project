@@ -48,6 +48,19 @@ export const typeDefs = gql`
     message: String!
     comment: Comment
   }
+  
+  type UpdateCommentResponse{
+    code: Int!
+    success: Boolean!
+    message: String!
+    comment: Comment
+  }
+
+  type DeleteCommentResponse{
+    code: Int!
+    success: Boolean!
+    message: String!  
+  }
 
   type CreateLikeResponse {
     code: Int!
@@ -91,8 +104,20 @@ export const typeDefs = gql`
       token: String!
       postId: ID!
     ): CreateCommentResponse!
-    createLike(postId: ID!, token: String!): CreateLikeResponse
     deletePost(id: ID!, token: String!): DeletePostResponse
+    updateComment(
+      id: ID!
+      content: String!
+      token: String!
+    ): UpdateCommentResponse!
+    deleteComment(
+      token: String!
+      id: ID!
+    ): DeleteCommentResponse!
+    createLike(
+      postId: ID!
+      token: String!
+    ): CreateLikeResponse
   }
 
   type Query {

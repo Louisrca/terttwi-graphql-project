@@ -4,12 +4,12 @@ import { signIn } from "./domain/users/signIn.js";
 import { createPost, deletePost } from "./domain/posts/mutation.js";
 import { me } from "./domain/users/query.js";
 import { getPosts, getPost, getPostsByUser } from "./domain/posts/query.js";
-import { createComment } from "./domain/comments/mutation.js";
 import {
   getComment,
   getComments,
   getCommentByUser,
 } from "./domain/comments/query.js";
+import { createComment, deleteComment, updateComment } from "./domain/comments/mutation.js";
 import { createLike } from "./domain/likes/mutation.js";
 
 export const resolvers: Resolvers = {
@@ -56,5 +56,7 @@ export const resolvers: Resolvers = {
     createComment,
     createLike,
     deletePost,
+    updateComment,
+    deleteComment,
   },
 };
