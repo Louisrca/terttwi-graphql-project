@@ -1,4 +1,5 @@
 import { QueryResolvers } from "../../types";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { verifyJWT } from "../../modules/auth.js";
 
 export const getPosts: QueryResolvers["getPosts"] = async (
@@ -29,3 +30,10 @@ export const getPostsByUser: QueryResolvers["getPostsByUser"] = async (
 
   return await dataSources.db.post.findMany({ where: { userId: user.id } });
 };
+
+export const getPostsByPopularity: QueryResolvers["getPostsByPopularity"] =
+  async (_, { isAsc }, { dataSources }) => {
+    return await dataSources.db.post.findMany({
+      orderBy: [{ likes: { _count: isAsc ? "asc" : "desc" } }],
+    });
+  };

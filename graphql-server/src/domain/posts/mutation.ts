@@ -4,7 +4,7 @@ import { verifyJWT } from "../../modules/auth.js";
 
 export const createPost: MutationResolvers["createPost"] = async (
   _,
-  { title, content, token },
+  { content, token },
   { dataSources }
 ) => {
   try {
@@ -28,7 +28,6 @@ export const createPost: MutationResolvers["createPost"] = async (
 
     const post = await dataSources.db.post.create({
       data: {
-        title,
         content,
         userId: user.id,
       },
@@ -128,7 +127,7 @@ export const deletePost: MutationResolvers["deletePost"] = async (
 
 export const updatePost: MutationResolvers["updatePost"] = async (
   _,
-  { id, title, content, token },
+  { id, content, token },
 
   { dataSources }
 ) => {
@@ -174,7 +173,6 @@ export const updatePost: MutationResolvers["updatePost"] = async (
     const updatePost = await dataSources.db.post.update({
       where: { id },
       data: {
-        title,
         content,
       },
     });

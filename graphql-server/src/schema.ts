@@ -1,12 +1,15 @@
 import gql from "graphql-tag";
 
 export const typeDefs = gql`
+  scalar DateTime
+  
   type Post {
     id: ID!
-    title: String
     content: String
     userId: ID!
     user: User
+    createdAt: DateTime
+    updatedAt: DateTime
     comments: [Comment]
     likes: Int
   }
@@ -15,6 +18,8 @@ export const typeDefs = gql`
     id: ID!
     content: String
     userId: ID!
+    createdAt: DateTime
+    updatedAt: DateTime
     user: User
     post: Post
     postId: ID!
@@ -27,10 +32,12 @@ export const typeDefs = gql`
     post: Post
     postId: ID!
   }
-    
+
   type User {
     id: ID!
     username: String!
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   type CreateUserResponse {
@@ -107,11 +114,7 @@ export const typeDefs = gql`
       email: String!
     ): CreateUserResponse
     signIn(username: String!, password: String!): SignInResponse
-    createPost(
-      title: String!
-      content: String!
-      token: String!
-    ): CreatePostResponse
+    createPost(content: String!, token: String!): CreatePostResponse
     createComment(
       content: String!
       token: String!
@@ -128,12 +131,7 @@ export const typeDefs = gql`
 
     deleteLike(id: ID!, token: String!): DeleteLikeResponse
 
-    updatePost(
-      id: ID!
-      title: String!
-      content: String!
-      token: String!
-    ): UpdatePostResponse
+    updatePost(id: ID!, content: String!, token: String!): UpdatePostResponse
   }
 
   type Query {
@@ -144,5 +142,6 @@ export const typeDefs = gql`
     getComments: [Comment]
     getComment(id: String!): Comment
     getCommentByUser(token: String!): [Comment]
+    getPostsByPopularity(isAsc: Boolean): [Post]
   }
 `;
