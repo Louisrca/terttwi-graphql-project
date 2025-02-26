@@ -3,7 +3,12 @@ import { createUser } from "./domain/users/createUser.js";
 import { signIn } from "./domain/users/signIn.js";
 import { createPost, deletePost, updatePost } from "./domain/posts/mutation.js";
 import { me } from "./domain/users/query.js";
-import { getPosts, getPost, getPostsByUser } from "./domain/posts/query.js";
+import {
+  getPosts,
+  getPost,
+  getPostsByUser,
+  getPostsByPopularity,
+} from "./domain/posts/query.js";
 import {
   getComment,
   getComments,
@@ -25,6 +30,7 @@ export const resolvers: Resolvers = {
     getComments,
     getComment,
     getCommentByUser,
+    getPostsByPopularity,
   },
 
   Post: {
