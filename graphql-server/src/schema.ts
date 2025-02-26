@@ -17,6 +17,7 @@ export const typeDefs = gql`
     userId: ID!
     user: User
     post: Post
+    postId: ID!
   }
 
   type Like {
@@ -78,6 +79,11 @@ export const typeDefs = gql`
       content: String!
       token: String!
     ): CreatePostResponse
+    createComment(
+      content: String!
+      token: String!
+      postId: ID!
+    ): CreateCommentResponse!
   }
 
   type Query {
@@ -85,5 +91,8 @@ export const typeDefs = gql`
     getPosts: [Post]
     getPost(id: String!): Post
     getPostsByUser(token: String!): [Post]
+    getComments: [Comment]
+    getComment(id: String!): Comment
+    getCommentByUser(token: String!): [Comment]
   }
 `;
