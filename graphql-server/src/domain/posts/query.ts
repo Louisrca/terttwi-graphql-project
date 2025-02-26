@@ -7,7 +7,11 @@ export const getPosts: QueryResolvers["getPosts"] = async (
   __,
   { dataSources }
 ) => {
-  return await dataSources.db.post.findMany();
+  const posts = await dataSources.db.post.findMany();
+  if (posts.length === 0) {
+    throw new Error("No posts found");
+  }
+  return posts;
 };
 
 export const getPost: QueryResolvers["getPost"] = async (
@@ -15,7 +19,13 @@ export const getPost: QueryResolvers["getPost"] = async (
   { id },
   { dataSources }
 ) => {
-  return await dataSources.db.post.findUnique({ where: { id } });
+  const post = await dataSources.db.post.findUnique({ where: { id } });
+
+  if (!post) {
+    throw new Error("Post not found");
+  }
+
+  return post;
 };
 
 export const getPostsByUser: QueryResolvers["getPostsByUser"] = async (
@@ -28,12 +38,24 @@ export const getPostsByUser: QueryResolvers["getPostsByUser"] = async (
     throw new Error("Invalid token");
   }
 
-  return await dataSources.db.post.findMany({ where: { userId: user.id } });
+  const posts = await dataSources.db.post.findMany({
+    where: { userId: user.id },
+  });
+  if (posts.length === 0) {
+    throw new Error("No posts found");
+  }
+  return posts;
 };
 
 export const getPostsByPopularity: QueryResolvers["getPostsByPopularity"] =
   async (_, { isAsc }, { dataSources }) => {
-    return await dataSources.db.post.findMany({
+    const posts = await dataSources.db.post.findMany({
       orderBy: [{ likes: { _count: isAsc ? "asc" : "desc" } }],
     });
+
+    if (posts.length === 0) {
+      throw new Error("No posts found");
+    }
+
+    return posts;
   };
