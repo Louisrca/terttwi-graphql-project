@@ -63,6 +63,7 @@ export type Like = {
   __typename?: 'Like';
   id: Scalars['ID']['output'];
   post?: Maybe<Post>;
+  postId: Scalars['ID']['output'];
   user?: Maybe<User>;
   userId: Scalars['ID']['output'];
 };
@@ -70,6 +71,7 @@ export type Like = {
 export type Mutation = {
   __typename?: 'Mutation';
   createComment: CreateCommentResponse;
+  createLike?: Maybe<CreateLikeResponse>;
   createPost?: Maybe<CreatePostResponse>;
   createUser?: Maybe<CreateUserResponse>;
   signIn?: Maybe<SignInResponse>;
@@ -78,6 +80,12 @@ export type Mutation = {
 
 export type MutationCreateCommentArgs = {
   content: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
+  token: Scalars['String']['input'];
+};
+
+
+export type MutationCreateLikeArgs = {
   postId: Scalars['ID']['input'];
   token: Scalars['String']['input'];
 };
@@ -107,7 +115,7 @@ export type Post = {
   comments?: Maybe<Array<Maybe<Comment>>>;
   content?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  likes?: Maybe<Array<Maybe<Like>>>;
+  likes?: Maybe<Scalars['Int']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   user?: Maybe<User>;
   userId: Scalars['ID']['output'];
@@ -315,6 +323,7 @@ export type CreateUserResponseResolvers<ContextType = Context, ParentType extend
 export type LikeResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
+  postId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -322,6 +331,7 @@ export type LikeResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createComment?: Resolver<ResolversTypes['CreateCommentResponse'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'content' | 'postId' | 'token'>>;
+  createLike?: Resolver<Maybe<ResolversTypes['CreateLikeResponse']>, ParentType, ContextType, RequireFields<MutationCreateLikeArgs, 'postId' | 'token'>>;
   createPost?: Resolver<Maybe<ResolversTypes['CreatePostResponse']>, ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'content' | 'title' | 'token'>>;
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email' | 'password' | 'username'>>;
   signIn?: Resolver<Maybe<ResolversTypes['SignInResponse']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'password' | 'username'>>;
@@ -331,7 +341,7 @@ export type PostResolvers<ContextType = Context, ParentType extends ResolversPar
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  likes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Like']>>>, ParentType, ContextType>;
+  likes?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;

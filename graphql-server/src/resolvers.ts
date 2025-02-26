@@ -6,6 +6,7 @@ import { me } from "./domain/users/query.js";
 import { getPosts, getPost, getPostsByUser } from "./domain/posts/query.js";
 import { createComment } from "./domain/comments/mutation.js";
 import { getComment, getComments, getCommentByUser } from "./domain/comments/query.js";
+import { createLike } from "./domain/likes/mutation.js";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -29,7 +30,14 @@ export const resolvers: Resolvers = {
         where: { postId: parent.id },
       });
     },
-
+    
+    likes: async(parent,_,{dataSources}  )=>{
+      return await dataSources.db.like.count({
+        where: { postId: parent.id },
+      });
+  
+    
+    }
   },
   Comment: {
     user: async (parent, _, { dataSources }) => {
@@ -44,5 +52,6 @@ export const resolvers: Resolvers = {
     signIn,
     createPost,
     createComment,
+    createLike,
   },
 };
