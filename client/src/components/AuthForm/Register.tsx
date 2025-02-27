@@ -1,24 +1,24 @@
 import { Input, Button, Box, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router";
-import { REGISTER_USER } from "../../api/auth/auth";
+import { REGISTER_USER } from "../../api/auth/mutation";
 import { useNavigate } from "react-router";
 import { useMutation } from "@apollo/client";
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [mail, setMail] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const [registerUser] = useMutation(REGISTER_USER, {
-    variables: { username, password, mail },
-  });
+  const [registerUser] = useMutation(REGISTER_USER);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const result = await registerUser();
-      if (result.data.signIn.success) {
+      const result = await registerUser({
+        variables: { username, password, email },
+      });
+      if (result?.data?.createUser?.success) {
         console.log("Register success:", result);
         navigate("/login");
       } else {
@@ -56,9 +56,9 @@ export default function RegisterForm() {
           placeholder="Password"
         />
         <Input
-          onChange={(e) => setMail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           type="mail"
-          value={mail}
+          value={email}
           placeholder="Mail"
         />
         <Button variant="contained" color="primary" type="submit">

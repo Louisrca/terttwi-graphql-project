@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider.tsx";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/", // URL to the GraphQL server
@@ -22,7 +23,9 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <ThemeProvider theme={darkTheme}>
         <ApolloProvider client={client}>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </ApolloProvider>
       </ThemeProvider>
     </BrowserRouter>

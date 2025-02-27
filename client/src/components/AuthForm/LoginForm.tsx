@@ -1,7 +1,7 @@
 import { Input, Button, Box, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router";
-import { SIGNIN_USER } from "../../api/auth/auth";
+import { SIGNIN_USER } from "../../api/auth/mutation";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router";
 
@@ -10,18 +10,19 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const [signInUser] = useMutation(SIGNIN_USER, {
-    variables: { username, password },
-  });
+  const [signInUser] = useMutation(SIGNIN_USER);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
-      const result = await signInUser();
+      // Passer les variables dans la mutation directement à la soumission
+      const result = await signInUser({ variables: { username, password } });
+
       if (result?.data?.signIn?.success && result.data.signIn.token) {
         console.log("Login success:", result);
         localStorage.setItem("token", result?.data?.signIn?.token);
-        navigate("/");
+        navigate("/"); // Rediriger vers la page d'accueil après une connexion réussie
       }
     } catch (err) {
       console.error("Error signing in:", err);
@@ -48,6 +49,7 @@ export default function LoginForm() {
           value={username}
           placeholder="Username"
         />
+
         <Input
           onChange={(e) => setPassword(e.target.value)}
           type="password"

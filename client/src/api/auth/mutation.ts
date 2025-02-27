@@ -15,8 +15,8 @@ export const SIGNIN_USER = graphql(
 
 export const REGISTER_USER = graphql(
   `
-    mutation SignIn($username: String!, $password: String!, email: String!) {
-      signIn(username: $username, password: $password, email: $email) {
+    mutation CreateUser($username: String!, $password: String!, $email: String!) {
+      createUser(username: $username, password: $password, email: $email) {
         code
         success
         message
