@@ -1,23 +1,12 @@
 import { MutationResolvers } from "../../types";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { verifyJWT } from "../../modules/auth.js";
 
 export const createLike: MutationResolvers["createLike"] = async (
   _,
-  { postId, token },
-  { dataSources }
+  { postId },
+  { dataSources, user }
 ) => {
   try {
-    if (!token) {
-      return {
-        code: 401,
-        success: false,
-        message: "No token provided",
-      };
-    }
-
-    const user = verifyJWT(token);
-
     if (!user) {
       return {
         code: 401,
@@ -73,20 +62,10 @@ export const createLike: MutationResolvers["createLike"] = async (
 
 export const deleteLike: MutationResolvers["deleteLike"] = async (
   _,
-  { id, token },
-  { dataSources }
+  { id },
+  { dataSources, user }
 ) => {
   try {
-    if (!token) {
-      return {
-        code: 401,
-        success: false,
-        message: "No token provided",
-      };
-    }
-
-    const user = verifyJWT(token);
-
     if (!user) {
       return {
         code: 401,
