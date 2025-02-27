@@ -3,8 +3,6 @@
   src: url("/fonts/GothamNarrow-Regular.woff2") format("woff2"),
     url("/fonts/GothamNarrow-Regular.woff") format("woff"),
     url("/fonts/GothamNarrow-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
 }
 
 body {
