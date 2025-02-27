@@ -20,6 +20,7 @@ type Documents = {
     "\n  mutation DeleteLike($id: ID!) {\n    deleteLike(id: $id) {\n      success\n    }\n  }\n": typeof types.DeleteLikeDocument,
     "\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n": typeof types.ToggleLikeDocument,
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsDocument,
+    "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsByPopularityDocument,
     "\n  query Query {\n    me {\n      id\n      username\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.QueryDocument,
 };
 const documents: Documents = {
@@ -29,6 +30,7 @@ const documents: Documents = {
     "\n  mutation DeleteLike($id: ID!) {\n    deleteLike(id: $id) {\n      success\n    }\n  }\n": types.DeleteLikeDocument,
     "\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n": types.ToggleLikeDocument,
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsDocument,
+    "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsByPopularityDocument,
     "\n  query Query {\n    me {\n      id\n      username\n      createdAt\n      updatedAt\n    }\n  }\n": types.QueryDocument,
 };
 
@@ -70,6 +72,10 @@ export function graphql(source: "\n  mutation ToggleLike($postId: ID!) {\n    to
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
