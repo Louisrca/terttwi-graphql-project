@@ -1,3 +1,53 @@
-.formulaire{
-    padding: 10px;
+.formulaire {
+  padding: 10px;
+}
+.commentContainer {
+  padding-bottom: 1.5rem;
+}
+
+.postHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0 1rem 1rem;
+}
+
+.post {
+  border-top: 0.1px solid rgb(90, 90, 90);
+}
+
+.edtiPost {
+  border-bottom: 0.1px solid rgb(90, 90, 90);
+  padding-bottom: 1rem;
+}
+.postInteraction {
+  margin-top: 20px;
+  padding-left: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.editActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-bottom: 0.1px solid rgb(90, 90, 90);
+  padding-bottom: 1rem;
+}
+.editContainer {
+  padding: 1rem;
+}
+.editButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 1rem;
+}
+
+.noComments {
+  padding: 1rem;
+  text-align: center;
+  color: rgb(90, 90, 90);
 }

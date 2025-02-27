@@ -127,10 +127,17 @@ export default function Posts() {
         {posts?.map((post) => (
           <div key={post?.id} className={styles.post}>
             <div onClick={() => navigate(`/post/${post?.id}`)}>
-              <Typography sx={{ paddingLeft: 5, marginBottom: 1 }}>
+              <Typography
+                sx={{
+                  paddingLeft: 2,
+                  marginBottom: 1,
+                  marginTop: 1,
+                  fontWeight: "bold",
+                }}
+              >
                 @{post?.user?.username || "Utilisateur inconnu"}
               </Typography>
-              <Typography sx={{ paddingLeft: 5, marginBottom: 2 }}>
+              <Typography sx={{ paddingLeft: 2, marginBottom: 1 }}>
                 {post?.content}
               </Typography>
               <div className={styles.postInteraction}>
