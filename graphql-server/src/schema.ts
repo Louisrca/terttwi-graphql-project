@@ -11,7 +11,8 @@ export const typeDefs = gql`
     createdAt: DateTime
     updatedAt: DateTime
     comments: [Comment]
-    likes: Int
+    numberOflikes: Int
+    likes: [Like]
   }
 
   type Comment {

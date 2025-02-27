@@ -47,8 +47,13 @@ export const resolvers: Resolvers = {
       });
     },
 
-    likes: async (parent, _, { dataSources }) => {
+    numberOflikes: async (parent, _, { dataSources }) => {
       return await dataSources.db.like.count({
+        where: { postId: parent.id },
+      });
+    },
+    likes: async (parent, _, { dataSources }) => {
+      return await dataSources.db.like.findMany({
         where: { postId: parent.id },
       });
     },

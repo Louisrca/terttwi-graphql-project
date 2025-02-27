@@ -14,10 +14,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsDocument,
+    "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      likes {\n        id\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsDocument,
+    "\n  mutation CreateLike($postId: ID!, $token: String!) {\n    createLike(postId: $postId, token: $token) {\n      like {\n        id\n      }\n      success\n    }\n  }\n": typeof types.CreateLikeDocument,
+    "\n  mutation DeleteLike($id: ID!, $token: String!) {\n    deleteLike(id: $id, token: $token) {\n      success\n    }\n  }\n": typeof types.DeleteLikeDocument,
 };
 const documents: Documents = {
-    "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsDocument,
+    "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      likes {\n        id\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsDocument,
+    "\n  mutation CreateLike($postId: ID!, $token: String!) {\n    createLike(postId: $postId, token: $token) {\n      like {\n        id\n      }\n      success\n    }\n  }\n": types.CreateLikeDocument,
+    "\n  mutation DeleteLike($id: ID!, $token: String!) {\n    deleteLike(id: $id, token: $token) {\n      success\n    }\n  }\n": types.DeleteLikeDocument,
 };
 
 /**
@@ -37,7 +41,15 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      likes {\n        id\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      likes {\n        id\n      }\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateLike($postId: ID!, $token: String!) {\n    createLike(postId: $postId, token: $token) {\n      like {\n        id\n      }\n      success\n    }\n  }\n"): (typeof documents)["\n  mutation CreateLike($postId: ID!, $token: String!) {\n    createLike(postId: $postId, token: $token) {\n      like {\n        id\n      }\n      success\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteLike($id: ID!, $token: String!) {\n    deleteLike(id: $id, token: $token) {\n      success\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteLike($id: ID!, $token: String!) {\n    deleteLike(id: $id, token: $token) {\n      success\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
