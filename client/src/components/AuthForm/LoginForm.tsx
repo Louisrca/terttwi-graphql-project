@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { SIGNIN_USER } from "../../api/auth/mutation";
 import { useMutation } from "@apollo/client";
-import { useNavigate } from "react-router";
+import { useAuth } from "../../context/AuthProvider";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [signInUser] = useMutation(SIGNIN_USER);
 
@@ -21,8 +21,7 @@ export default function LoginForm() {
 
       if (result?.data?.signIn?.success && result.data.signIn.token) {
         console.log("Login success:", result);
-        localStorage.setItem("token", result?.data?.signIn?.token);
-        navigate("/"); // Rediriger vers la page d'accueil après une connexion réussie
+        login(result.data.signIn.token);
       }
     } catch (err) {
       console.error("Error signing in:", err);
