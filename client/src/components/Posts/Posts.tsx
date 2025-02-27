@@ -4,7 +4,7 @@ import { GET_POSTS } from "../../api/posts/query";
 import { GetPostsQuery } from "../../gql/graphql";
 import styles from "./Posts.module.css";
 import { Typography } from "@mui/material";
-import HeartIcon from "../../common/svg/Hearticon";
+import HeartIcon from "../../common/svg/HeartIcon";
 import { useEffect, useState } from "react";
 import CommentIcon from "../../common/svg/CommentIcon";
 
