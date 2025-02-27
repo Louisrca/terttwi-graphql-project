@@ -116,23 +116,17 @@ export const typeDefs = gql`
       email: String!
     ): CreateUserResponse
     signIn(username: String!, password: String!): SignInResponse
-    createPost(content: String!, ): CreatePostResponse
-    createComment(
-      content: String!
-      postId: ID!
-    ): CreateCommentResponse!
-    deletePost(id: ID!,): DeletePostResponse
-    updateComment(
-      id: ID!
-      content: String!
-     
-    ): UpdateCommentResponse!
-    deleteComment(, id: ID!): DeleteCommentResponse!
-    createLike(postId: ID!, ): CreateLikeResponse
+    createPost(content: String!): CreatePostResponse
+    createComment(content: String!, postId: ID!): CreateCommentResponse!
+    deletePost(id: ID!): DeletePostResponse
+    updateComment(id: ID!, content: String!): UpdateCommentResponse!
+    deleteComment(id: ID!): DeleteCommentResponse!
+    createLike(postId: ID!): CreateLikeResponse
 
-    deleteLike(id: ID!, ): DeleteLikeResponse
+    deleteLike(id: ID!): DeleteLikeResponse
 
-    updatePost(id: ID!, content: String!, ): UpdatePostResponse
+    updatePost(id: ID!, content: String!): UpdatePostResponse
+    toggleLike(postId: ID!): Boolean
   }
 
   type Query {

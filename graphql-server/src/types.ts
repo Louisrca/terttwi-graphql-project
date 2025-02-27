@@ -102,6 +102,7 @@ export type Mutation = {
   deleteLike?: Maybe<DeleteLikeResponse>;
   deletePost?: Maybe<DeletePostResponse>;
   signIn?: Maybe<SignInResponse>;
+  toggleLike?: Maybe<Scalars['Boolean']['output']>;
   updateComment: UpdateCommentResponse;
   updatePost?: Maybe<UpdatePostResponse>;
 };
@@ -148,6 +149,11 @@ export type MutationDeletePostArgs = {
 export type MutationSignInArgs = {
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
+};
+
+
+export type MutationToggleLikeArgs = {
+  postId: Scalars['ID']['input'];
 };
 
 
@@ -452,6 +458,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   deleteLike?: Resolver<Maybe<ResolversTypes['DeleteLikeResponse']>, ParentType, ContextType, RequireFields<MutationDeleteLikeArgs, 'id'>>;
   deletePost?: Resolver<Maybe<ResolversTypes['DeletePostResponse']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
   signIn?: Resolver<Maybe<ResolversTypes['SignInResponse']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'password' | 'username'>>;
+  toggleLike?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationToggleLikeArgs, 'postId'>>;
   updateComment?: Resolver<ResolversTypes['UpdateCommentResponse'], ParentType, ContextType, RequireFields<MutationUpdateCommentArgs, 'content' | 'id'>>;
   updatePost?: Resolver<Maybe<ResolversTypes['UpdatePostResponse']>, ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'content' | 'id'>>;
 };

@@ -20,7 +20,7 @@ import {
   deleteComment,
   updateComment,
 } from "./domain/comments/mutation.js";
-import { createLike, deleteLike } from "./domain/likes/mutation.js";
+import { createLike, deleteLike, toggleLike } from "./domain/likes/mutation.js";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -97,5 +97,6 @@ export const resolvers: Resolvers = {
     deleteComment,
     deleteLike,
     updatePost,
+    toggleLike,
   },
 };

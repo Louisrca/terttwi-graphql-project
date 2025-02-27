@@ -102,3 +102,28 @@ export const deleteLike: MutationResolvers["deleteLike"] = async (
     };
   }
 };
+
+export const toggleLike: MutationResolvers["toggleLike"] = async (
+  _,
+  { postId },
+  { dataSources, user }
+) => {
+  if (!user) throw new Error("Non authentifié");
+
+  // Vérifier si un like existe déjà pour cet utilisateur et ce post
+  const existingLike = await dataSources.db.like.findFirst({
+    where: { postId, userId: user.id },
+  });
+
+  if (existingLike) {
+    // Supprimer le like existant (unlike)
+    await dataSources.db.like.delete({ where: { id: existingLike.id } });
+    return false;
+  } else {
+    // Créer un nouveau like
+    await dataSources.db.like.create({
+      data: { postId, userId: user.id },
+    });
+    return true;
+  }
+};
