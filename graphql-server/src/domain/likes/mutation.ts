@@ -1,23 +1,12 @@
 import { MutationResolvers } from "../../types";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { verifyJWT } from "../../modules/auth.js";
 
 export const createLike: MutationResolvers["createLike"] = async (
   _,
-  { postId, token },
-  { dataSources }
+  { postId },
+  { dataSources, user }
 ) => {
   try {
-    if (!token) {
-      return {
-        code: 401,
-        success: false,
-        message: "No token provided",
-      };
-    }
-
-    const user = verifyJWT(token);
-
     if (!user) {
       return {
         code: 401,
@@ -73,20 +62,10 @@ export const createLike: MutationResolvers["createLike"] = async (
 
 export const deleteLike: MutationResolvers["deleteLike"] = async (
   _,
-  { id, token },
-  { dataSources }
+  { id },
+  { dataSources, user }
 ) => {
   try {
-    if (!token) {
-      return {
-        code: 401,
-        success: false,
-        message: "No token provided",
-      };
-    }
-
-    const user = verifyJWT(token);
-
     if (!user) {
       return {
         code: 401,
@@ -121,5 +100,30 @@ export const deleteLike: MutationResolvers["deleteLike"] = async (
       success: false,
       message: "Internal server error",
     };
+  }
+};
+
+export const toggleLike: MutationResolvers["toggleLike"] = async (
+  _,
+  { postId },
+  { dataSources, user }
+) => {
+  if (!user) throw new Error("Non authentifié");
+
+  // Vérifier si un like existe déjà pour cet utilisateur et ce post
+  const existingLike = await dataSources.db.like.findFirst({
+    where: { postId, userId: user.id },
+  });
+
+  if (existingLike) {
+    // Supprimer le like existant (unlike)
+    await dataSources.db.like.delete({ where: { id: existingLike.id } });
+    return false;
+  } else {
+    // Créer un nouveau like
+    await dataSources.db.like.create({
+      data: { postId, userId: user.id },
+    });
+    return true;
   }
 };

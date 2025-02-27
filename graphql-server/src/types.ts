@@ -102,6 +102,7 @@ export type Mutation = {
   deleteLike?: Maybe<DeleteLikeResponse>;
   deletePost?: Maybe<DeletePostResponse>;
   signIn?: Maybe<SignInResponse>;
+  toggleLike?: Maybe<Scalars['Boolean']['output']>;
   updateComment: UpdateCommentResponse;
   updatePost?: Maybe<UpdatePostResponse>;
 };
@@ -110,19 +111,16 @@ export type Mutation = {
 export type MutationCreateCommentArgs = {
   content: Scalars['String']['input'];
   postId: Scalars['ID']['input'];
-  token: Scalars['String']['input'];
 };
 
 
 export type MutationCreateLikeArgs = {
   postId: Scalars['ID']['input'];
-  token: Scalars['String']['input'];
 };
 
 
 export type MutationCreatePostArgs = {
   content: Scalars['String']['input'];
-  token: Scalars['String']['input'];
 };
 
 
@@ -135,19 +133,16 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteCommentArgs = {
   id: Scalars['ID']['input'];
-  token: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteLikeArgs = {
   id: Scalars['ID']['input'];
-  token: Scalars['String']['input'];
 };
 
 
 export type MutationDeletePostArgs = {
   id: Scalars['ID']['input'];
-  token: Scalars['String']['input'];
 };
 
 
@@ -157,17 +152,20 @@ export type MutationSignInArgs = {
 };
 
 
+export type MutationToggleLikeArgs = {
+  postId: Scalars['ID']['input'];
+};
+
+
 export type MutationUpdateCommentArgs = {
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
-  token: Scalars['String']['input'];
 };
 
 
 export type MutationUpdatePostArgs = {
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
-  token: Scalars['String']['input'];
 };
 
 export type Post = {
@@ -176,6 +174,7 @@ export type Post = {
   content?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['ID']['output'];
+  isLiked?: Maybe<Scalars['Boolean']['output']>;
   likes?: Maybe<Array<Maybe<Like>>>;
   numberOflikes?: Maybe<Scalars['Int']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -202,11 +201,6 @@ export type QueryGetCommentArgs = {
 };
 
 
-export type QueryGetCommentByUserArgs = {
-  token: Scalars['String']['input'];
-};
-
-
 export type QueryGetPostArgs = {
   id: Scalars['String']['input'];
 };
@@ -219,11 +213,6 @@ export type QueryGetPostByAuthorArgs = {
 
 export type QueryGetPostsByPopularityArgs = {
   isAsc?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryGetPostsByUserArgs = {
-  token: Scalars['String']['input'];
 };
 
 
@@ -461,16 +450,17 @@ export type LikeResolvers<ContextType = Context, ParentType extends ResolversPar
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createComment?: Resolver<ResolversTypes['CreateCommentResponse'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'content' | 'postId' | 'token'>>;
-  createLike?: Resolver<Maybe<ResolversTypes['CreateLikeResponse']>, ParentType, ContextType, RequireFields<MutationCreateLikeArgs, 'postId' | 'token'>>;
-  createPost?: Resolver<Maybe<ResolversTypes['CreatePostResponse']>, ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'content' | 'token'>>;
+  createComment?: Resolver<ResolversTypes['CreateCommentResponse'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'content' | 'postId'>>;
+  createLike?: Resolver<Maybe<ResolversTypes['CreateLikeResponse']>, ParentType, ContextType, RequireFields<MutationCreateLikeArgs, 'postId'>>;
+  createPost?: Resolver<Maybe<ResolversTypes['CreatePostResponse']>, ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'content'>>;
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email' | 'password' | 'username'>>;
-  deleteComment?: Resolver<ResolversTypes['DeleteCommentResponse'], ParentType, ContextType, RequireFields<MutationDeleteCommentArgs, 'id' | 'token'>>;
-  deleteLike?: Resolver<Maybe<ResolversTypes['DeleteLikeResponse']>, ParentType, ContextType, RequireFields<MutationDeleteLikeArgs, 'id' | 'token'>>;
-  deletePost?: Resolver<Maybe<ResolversTypes['DeletePostResponse']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id' | 'token'>>;
+  deleteComment?: Resolver<ResolversTypes['DeleteCommentResponse'], ParentType, ContextType, RequireFields<MutationDeleteCommentArgs, 'id'>>;
+  deleteLike?: Resolver<Maybe<ResolversTypes['DeleteLikeResponse']>, ParentType, ContextType, RequireFields<MutationDeleteLikeArgs, 'id'>>;
+  deletePost?: Resolver<Maybe<ResolversTypes['DeletePostResponse']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
   signIn?: Resolver<Maybe<ResolversTypes['SignInResponse']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'password' | 'username'>>;
-  updateComment?: Resolver<ResolversTypes['UpdateCommentResponse'], ParentType, ContextType, RequireFields<MutationUpdateCommentArgs, 'content' | 'id' | 'token'>>;
-  updatePost?: Resolver<Maybe<ResolversTypes['UpdatePostResponse']>, ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'content' | 'id' | 'token'>>;
+  toggleLike?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationToggleLikeArgs, 'postId'>>;
+  updateComment?: Resolver<ResolversTypes['UpdateCommentResponse'], ParentType, ContextType, RequireFields<MutationUpdateCommentArgs, 'content' | 'id'>>;
+  updatePost?: Resolver<Maybe<ResolversTypes['UpdatePostResponse']>, ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'content' | 'id'>>;
 };
 
 export type PostResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
@@ -478,6 +468,7 @@ export type PostResolvers<ContextType = Context, ParentType extends ResolversPar
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isLiked?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   likes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Like']>>>, ParentType, ContextType>;
   numberOflikes?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
@@ -488,13 +479,13 @@ export type PostResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getComment?: Resolver<Maybe<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<QueryGetCommentArgs, 'id'>>;
-  getCommentByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QueryGetCommentByUserArgs, 'token'>>;
+  getCommentByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   getComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
   getPostByAuthor?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostByAuthorArgs, 'author'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getPostsByPopularity?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, Partial<QueryGetPostsByPopularityArgs>>;
-  getPostsByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostsByUserArgs, 'token'>>;
+  getPostsByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryMeArgs, 'id'>>;
 };
 

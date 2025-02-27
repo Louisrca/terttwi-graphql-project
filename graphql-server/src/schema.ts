@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const typeDefs = gql`
   scalar DateTime
-  
+
   type Post {
     id: ID!
     content: String
@@ -12,6 +12,7 @@ export const typeDefs = gql`
     updatedAt: DateTime
     comments: [Comment]
     numberOflikes: Int
+    isLiked: Boolean
     likes: [Like]
   }
 
@@ -115,34 +116,27 @@ export const typeDefs = gql`
       email: String!
     ): CreateUserResponse
     signIn(username: String!, password: String!): SignInResponse
-    createPost(content: String!, token: String!): CreatePostResponse
-    createComment(
-      content: String!
-      token: String!
-      postId: ID!
-    ): CreateCommentResponse!
-    deletePost(id: ID!, token: String!): DeletePostResponse
-    updateComment(
-      id: ID!
-      content: String!
-      token: String!
-    ): UpdateCommentResponse!
-    deleteComment(token: String!, id: ID!): DeleteCommentResponse!
-    createLike(postId: ID!, token: String!): CreateLikeResponse
+    createPost(content: String!): CreatePostResponse
+    createComment(content: String!, postId: ID!): CreateCommentResponse!
+    deletePost(id: ID!): DeletePostResponse
+    updateComment(id: ID!, content: String!): UpdateCommentResponse!
+    deleteComment(id: ID!): DeleteCommentResponse!
+    createLike(postId: ID!): CreateLikeResponse
 
-    deleteLike(id: ID!, token: String!): DeleteLikeResponse
+    deleteLike(id: ID!): DeleteLikeResponse
 
-    updatePost(id: ID!, content: String!, token: String!): UpdatePostResponse
+    updatePost(id: ID!, content: String!): UpdatePostResponse
+    toggleLike(postId: ID!): Boolean
   }
 
   type Query {
     me(id: String!): User
     getPosts: [Post]
     getPost(id: String!): Post
-    getPostsByUser(token: String!): [Post]
+    getPostsByUser: [Post]
     getComments: [Comment]
     getComment(id: String!): Comment
-    getCommentByUser(token: String!): [Comment]
+    getCommentByUser: [Comment]
     getPostsByPopularity(isAsc: Boolean): [Post]
     getPostByAuthor(author: String!): [Post]
   }

@@ -1,23 +1,12 @@
 import { MutationResolvers } from "../../types";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { verifyJWT } from "../../modules/auth.js";
 
 export const createPost: MutationResolvers["createPost"] = async (
   _,
-  { content, token },
-  { dataSources }
+  { content },
+  { dataSources, user }
 ) => {
   try {
-    if (!token) {
-      return {
-        code: 401,
-        success: false,
-        message: "No token provided",
-      };
-    }
-
-    const user = verifyJWT(token);
-
     if (!user) {
       return {
         code: 401,
@@ -58,20 +47,10 @@ export const createPost: MutationResolvers["createPost"] = async (
 
 export const deletePost: MutationResolvers["deletePost"] = async (
   _,
-  { id, token },
-  { dataSources }
+  { id },
+  { dataSources, user }
 ) => {
   try {
-    if (!token) {
-      return {
-        code: 401,
-        success: false,
-        message: "No token provided",
-      };
-    }
-
-    const user = verifyJWT(token);
-
     if (!user) {
       return {
         code: 401,
@@ -127,21 +106,11 @@ export const deletePost: MutationResolvers["deletePost"] = async (
 
 export const updatePost: MutationResolvers["updatePost"] = async (
   _,
-  { id, content, token },
+  { id, content },
 
-  { dataSources }
+  { dataSources, user }
 ) => {
   try {
-    if (!token) {
-      return {
-        code: 401,
-        success: false,
-        message: "No token provided",
-      };
-    }
-
-    const user = verifyJWT(token);
-
     if (!user) {
       return {
         code: 401,

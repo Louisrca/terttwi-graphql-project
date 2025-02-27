@@ -8,7 +8,7 @@ import {
   getPost,
   getPostsByUser,
   getPostsByPopularity,
-  getPostByAuthor
+  getPostByAuthor,
 } from "./domain/posts/query.js";
 import {
   getComment,
@@ -20,7 +20,7 @@ import {
   deleteComment,
   updateComment,
 } from "./domain/comments/mutation.js";
-import { createLike, deleteLike } from "./domain/likes/mutation.js";
+import { createLike, deleteLike, toggleLike } from "./domain/likes/mutation.js";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -57,8 +57,28 @@ export const resolvers: Resolvers = {
         where: { postId: parent.id },
       });
     },
+
+    isLiked: async (parent, _, { dataSources, user }) => {
+      if (!user) {
+        console.log("⚠️ User Not Found !");
+        return false;
+      }
+
+      const like = await dataSources.db.like.findFirst({
+        where: { postId: parent.id, userId: user.id },
+      });
+      return !!like;
+    },
   },
   Comment: {
+    user: async (parent, _, { dataSources }) => {
+      return await dataSources.db.user.findUnique({
+        where: { id: parent.userId },
+      });
+    },
+  },
+
+  Like: {
     user: async (parent, _, { dataSources }) => {
       return await dataSources.db.user.findUnique({
         where: { id: parent.userId },
@@ -77,5 +97,6 @@ export const resolvers: Resolvers = {
     deleteComment,
     deleteLike,
     updatePost,
+    toggleLike,
   },
 };

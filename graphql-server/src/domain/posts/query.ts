@@ -1,6 +1,4 @@
 import { QueryResolvers } from "../../types";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { verifyJWT } from "../../modules/auth.js";
 
 export const getPosts: QueryResolvers["getPosts"] = async (
   _,
@@ -30,10 +28,9 @@ export const getPost: QueryResolvers["getPost"] = async (
 
 export const getPostsByUser: QueryResolvers["getPostsByUser"] = async (
   _,
-  { token },
-  { dataSources }
+  __,
+  { dataSources, user }
 ) => {
-  const user = verifyJWT(token);
   if (!user) {
     throw new Error("Invalid token");
   }
@@ -65,10 +62,10 @@ export const getPostByAuthor: QueryResolvers["getPostByAuthor"] = async (
   { dataSources }
 ) => {
   return await dataSources.db.post.findMany({
-    where:{
-      user:{
-        username:{contains: author}, 
-      }
-    }
-  })
-}
+    where: {
+      user: {
+        username: { contains: author },
+      },
+    },
+  });
+};

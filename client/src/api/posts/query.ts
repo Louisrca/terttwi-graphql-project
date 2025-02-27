@@ -10,9 +10,7 @@ export const GET_POSTS = graphql(`
         username
       }
       numberOflikes
-      likes {
-        id
-      }
+      isLiked
       comments {
         id
         content
