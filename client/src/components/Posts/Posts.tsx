@@ -5,6 +5,10 @@ import { GetPostsQuery } from "../../gql/graphql";
 import styles from "./Posts.module.css";
 import { Typography } from "@mui/material";
 import HeartIcon from "../../common/svg/HeartIcon";
+<<<<<<< HEAD
+=======
+import { useEffect, useState } from "react";
+>>>>>>> c65cf40 (add: auth page)
 import CommentIcon from "../../common/svg/CommentIcon";
 
 export default function Posts() {
