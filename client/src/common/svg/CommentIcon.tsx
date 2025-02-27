@@ -9,8 +9,7 @@ export default function CommentIcon({ onClick }: { onClick: () => void }) {
             `}
       </style>
       <svg
-        width="24"
-        fill="white"
+        width="22"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         onClick={onClick}
@@ -19,6 +18,7 @@ export default function CommentIcon({ onClick }: { onClick: () => void }) {
           cursor: "pointer",
           transition: "fill 0.2s",
         }}
+        fill="rgb(90, 90, 90)"
       >
         <g>
           <path d="M0 0h24v24H0z" fill="none" />
