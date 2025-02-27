@@ -14,6 +14,7 @@ import {
   getComment,
   getComments,
   getCommentByUser,
+  getCommentsByPostId,
 } from "./domain/comments/query.js";
 import {
   createComment,
@@ -33,6 +34,7 @@ export const resolvers: Resolvers = {
     getCommentByUser,
     getPostsByPopularity,
     getPostByAuthor,
+    getCommentsByPostId,
   },
 
   Post: {

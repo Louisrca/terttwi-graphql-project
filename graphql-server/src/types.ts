@@ -187,6 +187,7 @@ export type Query = {
   getComment?: Maybe<Comment>;
   getCommentByUser?: Maybe<Array<Maybe<Comment>>>;
   getComments?: Maybe<Array<Maybe<Comment>>>;
+  getCommentsByPostId?: Maybe<Array<Maybe<Comment>>>;
   getPost?: Maybe<Post>;
   getPostByAuthor?: Maybe<Array<Maybe<Post>>>;
   getPosts?: Maybe<Array<Maybe<Post>>>;
@@ -198,6 +199,11 @@ export type Query = {
 
 export type QueryGetCommentArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryGetCommentsByPostIdArgs = {
+  postId: Scalars['ID']['input'];
 };
 
 
@@ -476,6 +482,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   getComment?: Resolver<Maybe<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<QueryGetCommentArgs, 'id'>>;
   getCommentByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   getComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
+  getCommentsByPostId?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QueryGetCommentsByPostIdArgs, 'postId'>>;
   getPost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetPostArgs, 'id'>>;
   getPostByAuthor?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryGetPostByAuthorArgs, 'author'>>;
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;

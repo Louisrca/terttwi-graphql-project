@@ -135,6 +135,7 @@ export const typeDefs = gql`
     getPost(id: String!): Post
     getPostsByUser: [Post]
     getComments: [Comment]
+    getCommentsByPostId(postId: ID!): [Comment]
     getComment(id: String!): Comment
     getCommentByUser: [Comment]
     getPostsByPopularity(isAsc: Boolean): [Post]

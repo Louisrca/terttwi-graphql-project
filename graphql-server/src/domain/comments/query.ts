@@ -34,3 +34,12 @@ export const getCommentByUser: QueryResolvers["getCommentByUser"] = async (
     },
   });
 };
+
+export const getCommentsByPostId: QueryResolvers["getCommentsByPostId"] =
+  async (_, { postId }, { dataSources }) => {
+    return await dataSources.db.comment.findMany({
+      where: {
+        postId,
+      },
+    });
+  };
