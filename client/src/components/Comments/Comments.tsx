@@ -1,14 +1,30 @@
-import { FormEvent, useState } from "react";
-import { useParams } from "react-router";
+import { FormEvent, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { POST_COMMENT } from "../../api/comments/mutation";
-import { Button, TextField, Box } from "@mui/material";
+import { Button, TextField, Box, CircularProgress, Alert } from "@mui/material";
 import styles from "./Comments.module.css";
+import { useAuth } from "../../context/AuthProvider";
 
-export const CommentForm = ({ token }: { token: string }) => {
-  const { postId } = useParams();
+export const CommentForm = () => {
+  const { id } = useParams();
+  console.log("🚀 ~ CommentForm ~ postId:", id);
   const [content, setContent] = useState("");
-  const [createComment, { data, loading, error }] = useMutation(POST_COMMENT);
+  const [charCount, setCharCount] = useState(0);
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+  const [createComment, { loading, error }] = useMutation(POST_COMMENT, {
+    context: {
+      headers: {
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    },
+  });
+
+  useEffect(() => {
+    setCharCount(content.length);
+  }, [content]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -16,14 +32,30 @@ export const CommentForm = ({ token }: { token: string }) => {
     if (!content.trim()) {
       return;
     }
+
+    if (!id) {
+      console.error("ID du post manquant");
+      return;
+    }
+
     try {
-      if (postId)
-        await createComment({ variables: { content, token, postId } });
+      await createComment({
+        variables: {
+          content,
+          postId: id,
+        },
+      });
       setContent("");
+
+      if (window.location.pathname !== `/post/${id}`) {
+        navigate(`/post/${id}`);
+      }
     } catch (err) {
-      console.error("Erreur", err);
+      console.error("Erreur lors de l'envoi du commentaire:", err);
     }
   };
+
+  const MAX_CHARS = 500;
 
   return (
     <div className={styles.formulaire}>
@@ -37,35 +69,56 @@ export const CommentForm = ({ token }: { token: string }) => {
             rows={3}
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            inputProps={{ maxLength: MAX_CHARS }}
+            error={charCount >= MAX_CHARS}
+            helperText={`${charCount}/${MAX_CHARS} caractères`}
             sx={{
               marginBottom: 2,
-              bgcolor: "transparent", // Fond transparent
-              color: "white", // Texte blanc
+              bgcolor: "transparent",
               "& .MuiOutlinedInput-root": {
-                "& fieldset": { borderColor: "white" }, // Bordure blanche
+                "& fieldset": { borderColor: "white" },
                 "&:hover fieldset": { borderColor: "white" },
                 "&.Mui-focused fieldset": { borderColor: "white" },
               },
-              "& .MuiInputLabel-root": { color: "white" }, // Label blanc
-              "& .MuiInputBase-input": { color: "white" }, // Texte saisi blanc
+              "& .MuiInputLabel-root": { color: "white" },
+              "& .MuiInputBase-input": { color: "white" },
+              "& .MuiFormHelperText-root": { color: "lightgrey" },
             }}
           />
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            {" "}
-            {/* Bouton aligné à droite */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              onClick={() => setContent("")}
+              variant="text"
+              color="secondary"
+              disabled={loading || content.length === 0}
+            >
+              Effacer
+            </Button>
             <Button
               type="submit"
               variant="contained"
               color="primary"
-              disabled={loading}
+              disabled={loading || !content.trim()}
+              endIcon={
+                loading ? <CircularProgress size={20} color="inherit" /> : null
+              }
             >
               {loading ? "Envoi..." : "Poster"}
             </Button>
           </Box>
         </form>
 
-        {error && <p style={{ color: "red" }}>Erreur: {error.message}</p>}
-        {data && data.createComment && <p>Commentaire posté !</p>}
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            Erreur: {error.message}
+          </Alert>
+        )}
       </Box>
     </div>
   );
