@@ -10,7 +10,6 @@ type AuthenticatedUser = {
 
 export const useAuth = () => {
   const token = localStorage.getItem("token");
-  console.log("🚀 ~ useAuth ~ token:", token);
   const [user, setUser] = useState<AuthenticatedUser | null>(null);
 
   const { data, loading, error } = useQuery<QueryQuery>(GET_ME, {
@@ -22,10 +21,10 @@ export const useAuth = () => {
   });
 
   useEffect(() => {
-    if (data?.me) {
+    if (token && data?.me) {
       setUser(data.me);
     }
   }, [data]);
 
-  return { user, loading, error };
+  return { user, token, loading, error };
 };

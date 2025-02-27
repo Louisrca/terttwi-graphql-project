@@ -22,3 +22,26 @@ export const GET_POSTS = graphql(`
     }
   }
 `);
+
+export const GET_POST_BY_POPULARITY = graphql(`
+  query GetPostsByPopularity($isAsc: Boolean) {
+    getPostsByPopularity(isAsc: $isAsc) {
+      id
+      content
+      user {
+        id
+        username
+      }
+      numberOflikes
+      isLiked
+      comments {
+        id
+        content
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`);

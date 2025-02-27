@@ -1,22 +1,28 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { TOGGLE_LIKE } from "../../api/like/mutation";
-import { GET_POSTS } from "../../api/posts/query";
-import { GetPostsQuery } from "../../gql/graphql";
+import { GET_POSTS, GET_POST_BY_POPULARITY } from "../../api/posts/query";
+import { GetPostsQuery, GetPostsByPopularityQuery } from "../../gql/graphql";
 import styles from "./Posts.module.css";
 import { Typography } from "@mui/material";
 import HeartIcon from "../../common/svg/HeartIcon";
 import CommentIcon from "../../common/svg/CommentIcon";
+import { useAuth } from "../../utils/useAuth";
+import { useState } from "react";
 
 export default function Posts() {
-  //   to change when the user is logged in, get from local storage
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZGFhY2VlLWI2M2UtNDk0OS04Y2JhLTgyZjA4Mzc0Zjg5OSIsInVzZXJuYW1lIjoibG91aXMiLCJpYXQiOjE3NDA2NjM0MjMsImV4cCI6MTc0MDc0OTgyM30.x8nGnqepC8FR5nnHS6pt9V0-_Ppt4NH6eaSnl_NWz-s";
-  const { data, loading, error, refetch } = useQuery<GetPostsQuery>(GET_POSTS, {
+  const { token } = useAuth();
+  const [orderByPopularity, setOrderByPopularity] = useState<boolean>();
+  console.log("🚀 ~ Posts ~ orderByPopularity:", orderByPopularity);
+
+  const { data, loading, error, refetch } = useQuery<
+    GetPostsQuery | GetPostsByPopularityQuery
+  >(orderByPopularity ? GET_POST_BY_POPULARITY : GET_POSTS, {
     context: {
       headers: {
         authorization: token ? `Bearer ${token}` : "",
       },
     },
+    fetchPolicy: "cache-and-network", // Adjust based on how you want to handle caching
   });
 
   const [toggleLike] = useMutation(TOGGLE_LIKE, {
@@ -43,9 +49,26 @@ export default function Posts() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  const posts = orderByPopularity
+    ? (data as GetPostsByPopularityQuery)?.getPostsByPopularity
+    : (data as GetPostsQuery)?.getPosts;
+
+  console.log("🚀 ~ Posts ~ posts:", posts);
+
   return (
     <div>
-      {data?.getPosts?.map((post) => (
+      <button
+        onClick={() => {
+          if (orderByPopularity) {
+            setOrderByPopularity(true);
+          } else {
+            setOrderByPopularity(!orderByPopularity);
+          }
+        }}
+      >
+        by Popularity
+      </button>
+      {posts?.map((post) => (
         <div key={post?.id ?? ""} className={styles.post}>
           <Typography sx={{ paddingLeft: 5, marginBottom: 1 }}>
             @{post?.user?.username ?? ""}
