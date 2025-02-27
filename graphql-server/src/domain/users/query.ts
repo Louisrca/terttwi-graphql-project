@@ -6,8 +6,9 @@ export const me: QueryResolvers["me"] = async (
   { dataSources, user }
 ) => {
   if (!user) {
-    throw new Error("Not authenticated");
+    throw new Error("Unauthorized");
   }
+  const id = user?.id;
 
   return dataSources.db.user.findUnique({
     where: {
