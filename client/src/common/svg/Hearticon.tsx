@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function HeartIcon({
   isActive,
   handleIsLiked,
@@ -15,6 +13,9 @@ export default function HeartIcon({
       xmlns="http://www.w3.org/2000/svg"
       fill={isActive ? "red" : "none"}
       onClick={handleIsLiked}
+      style={{
+        cursor: "pointer",
+      }}
     >
       <rect fill="none" height="26" width="26" />
       <path
