@@ -8,6 +8,7 @@ import HeartIcon from "../../common/svg/HeartIcon";
 import CommentIcon from "../../common/svg/CommentIcon";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -15,6 +16,7 @@ export default function Posts() {
   const { token } = useAuth();
   const [orderByPopularity, setOrderByPopularity] = useState<boolean>(false);
   const [isAscending, setIsAscending] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const {
     data: regularData,
@@ -124,27 +126,31 @@ export default function Posts() {
       <div className={styles.postsList}>
         {posts?.map((post) => (
           <div key={post?.id} className={styles.post}>
-            <Typography sx={{ paddingLeft: 5, marginBottom: 1 }}>
-              @{post?.user?.username || "Utilisateur inconnu"}
-            </Typography>
-            <Typography sx={{ paddingLeft: 5, marginBottom: 2 }}>
-              {post?.content}
-            </Typography>
-            <div className={styles.postInteraction}>
-              <div className={styles.postHeart}>
-                <HeartIcon
-                  handleIsLiked={() => handleLikeToggle(post?.id || "")}
-                  isActive={post?.isLiked || false}
-                />
-                <span className={styles.likeCount}>
-                  {post?.numberOflikes || 0}
-                </span>
-              </div>
-              <div className={styles.postMessage}>
-                <CommentIcon onClick={() => console.log("Commented")} />
-                <span className={styles.commentCount}>
-                  {post?.comments?.length || 0}
-                </span>
+            <div onClick={() => navigate(`/post/${post?.id}`)}>
+              <Typography sx={{ paddingLeft: 5, marginBottom: 1 }}>
+                @{post?.user?.username || "Utilisateur inconnu"}
+              </Typography>
+              <Typography sx={{ paddingLeft: 5, marginBottom: 2 }}>
+                {post?.content}
+              </Typography>
+              <div className={styles.postInteraction}>
+                <div className={styles.postHeart}>
+                  <HeartIcon
+                    handleIsLiked={() => handleLikeToggle(post?.id || "")}
+                    isActive={post?.isLiked || false}
+                  />
+                  <span className={styles.likeCount}>
+                    {post?.numberOflikes || 0}
+                  </span>
+                </div>
+                <div className={styles.postMessage}>
+                  <CommentIcon
+                    onClick={() => navigate(`/comment/${post?.id}`)}
+                  />
+                  <span className={styles.commentCount}>
+                    {post?.comments?.length || 0}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
