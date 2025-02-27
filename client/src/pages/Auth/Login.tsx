@@ -1,6 +1,6 @@
-import {useState} from "react";
+import { useState } from "react";
 import styles from "./Auth.module.css";
-import HeartIcon from "../../common/svg/HeartIcon";
+import HeartIcon from "../../common/svg/HeartIcon1";
 
 import AuthForm from "../../components/AuthForm/AuthForm";
 export default function Login() {
@@ -12,7 +12,10 @@ export default function Login() {
         <AuthForm type="login" />
       </section>
 
-      <HeartIcon handleIsLiked={() => setIsLiked(!isLiked)} isActive={isLiked} />
+      <HeartIcon
+        handleIsLiked={() => setIsLiked(!isLiked)}
+        isActive={isLiked}
+      />
     </div>
   );
 }

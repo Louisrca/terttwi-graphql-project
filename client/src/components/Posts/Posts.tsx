@@ -4,7 +4,7 @@ import { GET_POSTS } from "../../api/posts/query";
 import { GetPostsQuery } from "../../gql/graphql";
 import styles from "./Posts.module.css";
 import { Typography } from "@mui/material";
-import HeartIcon from "../../common/svg/HeartIcon";
+import HeartIcon from "../../common/svg/HeartIcon1";
 import CommentIcon from "../../common/svg/CommentIcon";
 
 export default function Posts() {
