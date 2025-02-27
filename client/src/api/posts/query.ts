@@ -45,3 +45,16 @@ export const GET_POST_BY_POPULARITY = graphql(`
     }
   }
 `);
+
+export const GET_POSTS_BY_ID = graphql(`
+  query GetPost($id: String!) {
+    getPost(id: $id) {
+      id
+      content
+      user {
+        id
+        username
+      }
+    }
+  }
+`);
