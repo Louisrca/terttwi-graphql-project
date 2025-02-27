@@ -2,13 +2,16 @@ import { QueryResolvers } from "../../types";
 
 export const me: QueryResolvers["me"] = async (
   _,
-  { id },
-  { dataSources },
-  __
+  __,
+  { dataSources, user }
 ) => {
+  if (!user) {
+    throw new Error("Not authenticated");
+  }
+
   return dataSources.db.user.findUnique({
     where: {
-      id,
+      id: user.id,
     },
   });
 };

@@ -215,11 +215,6 @@ export type QueryGetPostsByPopularityArgs = {
   isAsc?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-
-export type QueryMeArgs = {
-  id: Scalars['String']['input'];
-};
-
 export type SignInResponse = {
   __typename?: 'SignInResponse';
   code: Scalars['Int']['output'];
@@ -486,7 +481,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   getPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getPostsByPopularity?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, Partial<QueryGetPostsByPopularityArgs>>;
   getPostsByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
-  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryMeArgs, 'id'>>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type SignInResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['SignInResponse'] = ResolversParentTypes['SignInResponse']> = {
