@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Auth.module.css";
-import HeartIcon from "../../common/svg/HeartIcon1";
+import HeartIcon from "../../common/svg/HeartIcon";
 
 import AuthForm from "../../components/AuthForm/AuthForm";
 export default function Login() {
