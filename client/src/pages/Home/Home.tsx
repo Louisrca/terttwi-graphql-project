@@ -9,7 +9,7 @@ export default function Home() {
         <div className={styles.homeColonne}>
         </div>
         <div className={styles.homeColonne}>
-          <PostsForm/>
+          {/* <PostsForm/> */}
           <Posts />
         </div>
         <div className={styles.homeColonne}>
