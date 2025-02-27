@@ -1,7 +1,6 @@
 @font-face {
   font-family: "Gotham Narrow";
   src: url("/fonts/GothamNarrow-Regular.woff2") format("woff2"),
-<<<<<<< HEAD
       url("/fonts/GothamNarrow-Regular.woff") format("woff"),
       url("/fonts/GothamNarrow-Regular.ttf") format("truetype");
   font-weight: normal;
@@ -12,10 +11,6 @@ body{
   margin: 0;
   background-color: black;
   font-family: "Gotham Narrow", sans-serif;
-=======
-    url("/fonts/GothamNarrow-Regular.woff") format("woff"),
-    url("/fonts/GothamNarrow-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
->>>>>>> 2b48be4 (add: auth page)
 }
