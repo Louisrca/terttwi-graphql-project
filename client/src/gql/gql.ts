@@ -23,6 +23,7 @@ type Documents = {
     "\n  mutation CreateLike($postId: ID!) {\n    createLike(postId: $postId) {\n      like {\n        id\n      }\n      success\n    }\n  }\n": typeof types.CreateLikeDocument,
     "\n  mutation DeleteLike($id: ID!) {\n    deleteLike(id: $id) {\n      success\n    }\n  }\n": typeof types.DeleteLikeDocument,
     "\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n": typeof types.ToggleLikeDocument,
+    "\n  mutation CreatePost($content: String!) {\n    createPost(content: $content) {\n      code\n      message\n      success\n      post {\n        user {\n          username\n        }\n      }\n    }\n  }\n": typeof types.CreatePostDocument,
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsDocument,
     "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsByPopularityDocument,
     "\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": typeof types.GetPostDocument,
@@ -38,6 +39,7 @@ const documents: Documents = {
     "\n  mutation CreateLike($postId: ID!) {\n    createLike(postId: $postId) {\n      like {\n        id\n      }\n      success\n    }\n  }\n": types.CreateLikeDocument,
     "\n  mutation DeleteLike($id: ID!) {\n    deleteLike(id: $id) {\n      success\n    }\n  }\n": types.DeleteLikeDocument,
     "\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n": types.ToggleLikeDocument,
+    "\n  mutation CreatePost($content: String!) {\n    createPost(content: $content) {\n      code\n      message\n      success\n      post {\n        user {\n          username\n        }\n      }\n    }\n  }\n": types.CreatePostDocument,
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsDocument,
     "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsByPopularityDocument,
     "\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": types.GetPostDocument,
@@ -94,6 +96,10 @@ export function graphql(source: "\n  mutation DeleteLike($id: ID!) {\n    delete
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n"): (typeof documents)["\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreatePost($content: String!) {\n    createPost(content: $content) {\n      code\n      message\n      success\n      post {\n        user {\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation CreatePost($content: String!) {\n    createPost(content: $content) {\n      code\n      message\n      success\n      post {\n        user {\n          username\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
