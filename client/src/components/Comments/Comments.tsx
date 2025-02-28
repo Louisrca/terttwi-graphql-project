@@ -1,10 +1,19 @@
 import { FormEvent, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { POST_COMMENT } from "../../api/comments/mutation";
-import { Button, TextField, Box, CircularProgress, Alert } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Box,
+  CircularProgress,
+  Alert,
+  Typography,
+} from "@mui/material";
 import styles from "./Comments.module.css";
 import { useAuth } from "../../context/AuthProvider";
+import { GetCommentsByPostIdQuery } from "../../gql/graphql";
+import { GET_COMMENTS_BY_POSTID } from "../../api/comments/query";
 
 export const CommentForm = () => {
   const { id } = useParams();
@@ -13,6 +22,17 @@ export const CommentForm = () => {
   const [charCount, setCharCount] = useState(0);
   const navigate = useNavigate();
   const { token } = useAuth();
+
+  const {
+    data,
+    loading: getCommentByIdLoading,
+    error: getCommentByIdError,
+    refetch,
+  } = useQuery<GetCommentsByPostIdQuery>(GET_COMMENTS_BY_POSTID, {
+    variables: {
+      postId: id,
+    },
+  });
 
   const [createComment, { loading, error }] = useMutation(POST_COMMENT, {
     context: {
@@ -46,6 +66,8 @@ export const CommentForm = () => {
         },
       });
       setContent("");
+      setCharCount(0);
+      refetch();
 
       if (window.location.pathname !== `/post/${id}`) {
         navigate(`/post/${id}`);
@@ -56,6 +78,9 @@ export const CommentForm = () => {
   };
 
   const MAX_CHARS = 500;
+
+  if (getCommentByIdLoading) return <p>Loading...</p>;
+  if (getCommentByIdError) return <p>Error: {getCommentByIdError.message}</p>;
 
   return (
     <div className={styles.formulaire}>
@@ -113,6 +138,39 @@ export const CommentForm = () => {
             </Button>
           </Box>
         </form>
+        <div>
+          {data?.getCommentsByPostId && data.getCommentsByPostId.length > 0 ? (
+            data.getCommentsByPostId.map((comment) => (
+              <div className={styles.post}>
+                <div className={styles.commentContent}>
+                  <Typography
+                    sx={{
+                      paddingLeft: 2,
+                      marginBottom: 1,
+                      marginTop: 1,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    @{comment?.user?.username}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      paddingLeft: 5,
+                      marginTop: 1,
+                      paddingBottom: 2,
+                    }}
+                  >
+                    {comment?.content}
+                  </Typography>
+                </div>
+              </div>
+            ))
+          ) : (
+            <Typography className={styles.noComments}>
+              Aucun commentaire pour ce post !
+            </Typography>
+          )}
+        </div>
 
         {error && (
           <Alert severity="error" sx={{ mt: 2 }}>

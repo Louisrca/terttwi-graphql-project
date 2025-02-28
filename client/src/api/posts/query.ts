@@ -60,8 +60,8 @@ export const GET_POSTS_BY_ID = graphql(`
 `);
 
 export const GET_POST_BY_USER = graphql(`
-  query GetPostsByUser($userId: ID!) {
-    getPostsByUser(userId: $userId) {
+  query GetPostByAuthor($author: String!) {
+    getPostByAuthor(author: $author) {
       id
       content
       user {

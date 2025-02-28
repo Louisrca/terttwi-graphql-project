@@ -139,44 +139,46 @@ export default function AllComments() {
               ) : (
                 <>
                   <div className={styles.post}>
-                    <Typography
-                      sx={{
-                        paddingLeft: 2,
-                        marginBottom: 1,
-                        marginTop: 1,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      @{comment.user?.username}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        paddingLeft: 5,
-                        marginTop: 1,
-                      }}
-                    >
-                      {comment.content}
-                    </Typography>
-                  </div>
-
-                  {user?.id === comment.user?.id && (
-                    <div className={styles.editActions}>
-                      <Button
-                        onClick={() =>
-                          handleEdit(comment.id, comment.content || "")
-                        }
-                        color="primary"
+                    <div className={styles.commentContent}>
+                      <Typography
+                        sx={{
+                          paddingLeft: 2,
+                          marginBottom: 1,
+                          marginTop: 1,
+                          fontWeight: "bold",
+                        }}
                       >
-                        <BrushOutlinedIcon />
-                      </Button>
-                      <Button
-                        color="error"
-                        onClick={() => handleDelete(comment.id)}
+                        @{comment.user?.username}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          paddingLeft: 5,
+                          marginTop: 1,
+                          paddingBottom: 2,
+                        }}
                       >
-                        <DeleteOutlineIcon />
-                      </Button>
+                        {comment.content}
+                      </Typography>
                     </div>
-                  )}
+                    {user?.id === comment.user?.id && (
+                      <div className={styles.editActions}>
+                        <Button
+                          onClick={() =>
+                            handleEdit(comment.id, comment.content || "")
+                          }
+                          color="primary"
+                        >
+                          <BrushOutlinedIcon />
+                        </Button>
+                        <Button
+                          color="error"
+                          onClick={() => handleDelete(comment.id)}
+                        >
+                          <DeleteOutlineIcon />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
             </div>

@@ -19,7 +19,7 @@ export default function PostPage() {
             padding: "1rem",
           }}
         >
-          <Button color="primary" onClick={() => navigate("/")}>
+          <Button color="primary" onClick={() => navigate(-1)}>
             <ArrowBackOutlinedIcon />
           </Button>
         </div>

@@ -125,24 +125,29 @@ export default function Posts() {
       <div className={styles.postsList}>
         {posts?.map((post) => (
           <div key={post?.id} className={styles.post}>
-            <div
-              onClick={() =>
-                navigate(
-                  `/profile/${post?.user?.username}?id=${post?.user?.id}`
-                )
-              }
-            >
+            <div>
               <Typography
                 sx={{
                   paddingLeft: 2,
                   marginBottom: 1,
                   marginTop: 1,
                   fontWeight: "bold",
+                  cursor: "pointer",
+                  "&:hover": { textDecoration: "underline" },
+                  width: "fit-content",
                 }}
+                onClick={() =>
+                  navigate(
+                    `/profile/${post?.user?.username}?id=${post?.user?.id}`
+                  )
+                }
               >
                 @{post?.user?.username || "Utilisateur inconnu"}
               </Typography>
-              <div onClick={() => navigate(`/post/${post?.id}`)}>
+              <div
+                onClick={() => navigate(`/post/${post?.id}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <Typography sx={{ paddingLeft: 2, marginBottom: 1 }}>
                   {post?.content}
                 </Typography>
