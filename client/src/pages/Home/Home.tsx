@@ -25,6 +25,9 @@ export default function Home() {
           </Button>
         </div>
         <div className={styles.homeColonne} id={styles.homePostList}>
+          <div className="">
+            <PostsForm />
+          </div>
           <Posts />
         </div>
         <div className={styles.homeColonne}></div>
