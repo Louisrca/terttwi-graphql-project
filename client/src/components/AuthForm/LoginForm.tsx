@@ -10,13 +10,12 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const { login } = useAuth();
 
-  const [signInUser] = useMutation(SIGNIN_USER);
+  const [signInUser, { data }] = useMutation(SIGNIN_USER);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      // Passer les variables dans la mutation directement à la soumission
       const result = await signInUser({ variables: { username, password } });
 
       if (result?.data?.signIn?.success && result.data.signIn.token) {
@@ -30,8 +29,19 @@ export default function LoginForm() {
 
   return (
     <div>
+      {(data?.signIn?.code === 401 || data?.signIn?.code === 400) && (
+        <Typography
+          variant="body1"
+          color="error"
+          sx={{
+            width: "250px",
+            wordBreak: "break-word",
+          }}
+        >
+          Erreur d'authentification, veuillez réssayer.
+        </Typography>
+      )}
       <Typography variant="h4">Login</Typography>
-
       <Box
         component="form"
         sx={{

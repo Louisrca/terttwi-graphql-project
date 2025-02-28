@@ -38,9 +38,7 @@ export const getPostsByUser: QueryResolvers["getPostsByUser"] = async (
   const posts = await dataSources.db.post.findMany({
     where: { userId: user.id },
   });
-  if (posts.length === 0) {
-    throw new Error("No posts found");
-  }
+
   return posts;
 };
 

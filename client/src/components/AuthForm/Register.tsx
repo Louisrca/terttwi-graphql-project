@@ -10,7 +10,7 @@ export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const [registerUser] = useMutation(REGISTER_USER);
+  const [registerUser, { data }] = useMutation(REGISTER_USER);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,6 +31,18 @@ export default function RegisterForm() {
 
   return (
     <div>
+      {(data?.createUser?.code === 401 || data?.createUser?.code === 400) && (
+        <Typography
+          variant="body1"
+          color="error"
+          sx={{
+            width: "250px",
+            wordBreak: "break-word",
+          }}
+        >
+          Erreur d'authentification, veuillez réssayer.
+        </Typography>
+      )}
       <Typography variant="h4">Register</Typography>
 
       <Box
