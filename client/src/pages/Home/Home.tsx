@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <Posts />
         </div>
-        <div className={styles.homeColonne}>
+        <div className={styles.homeColonne} id={styles.homeMyPostList}>
           <PostsByUser />
         </div>
       </div>

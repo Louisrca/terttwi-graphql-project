@@ -7,7 +7,7 @@ import { CREATE_POST } from "../../api/posts/mutation";
 import { useAuth } from "../../context/AuthProvider";
 
 export default function PostsForm() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [content, setContent] = useState("");
 
   const [createPost, { data, loading, error }] = useMutation(CREATE_POST, {
@@ -45,7 +45,7 @@ export default function PostsForm() {
         <div className={styles.inputGroup}>
           <TextField
             multiline
-            placeholder="ça dit quoi ?"
+            placeholder={`Ça dit quoi @${user?.username} ?`}
             maxRows={4}
             value={content}
             onChange={(e) => setContent(e.target.value)}

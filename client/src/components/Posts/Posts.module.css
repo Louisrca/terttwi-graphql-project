@@ -33,10 +33,11 @@
 .formContainer {
   max-width: 32rem;
   margin: auto;
-  background-color: #15202b; /* Fond sombre façon Twitter */
+
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  margin-top: 2rem;
 }
 
 .inputGroup {
@@ -72,4 +73,3 @@
 .postButton:hover {
   background-color: #1a8cd8; /* Bleu légèrement plus foncé au survol */
 }
-

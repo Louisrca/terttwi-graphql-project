@@ -14,3 +14,7 @@
 #homePostList {
   overflow: scroll;
 }
+
+#homeMyPostList {
+  overflow: scroll;
+}
