@@ -7,9 +7,13 @@ import BrushOutlinedIcon from "@mui/icons-material/BrushOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useState } from "react";
 import { DELETE_POST } from "../../api/posts/mutation";
+import { useAuth } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function PostsByUser() {
+  const { user } = useAuth();
   const { loading, error, data, refetch } = useQuery(GET_POSTS_BY_USER);
+  const navigate = useNavigate();
   const [deletePost] = useMutation(DELETE_POST, {
     refetchQueries: [{ query: GET_POSTS }],
     awaitRefetchQueries: true,
@@ -52,7 +56,15 @@ export default function PostsByUser() {
 
   return (
     <div>
-      <h2>Mes Posts</h2>
+      <h2 style={{ marginLeft: "10px" }}>
+        Profil de{" "}
+        <span
+          onClick={() => navigate(`/profile/${user?.username}?id=${user?.id}`)}
+          className={styles.title}
+        >
+          @{user?.username}
+        </span>
+      </h2>
       {posts.length > 0 ? (
         <>
           {editingPostId === null ? (
