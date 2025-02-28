@@ -23,7 +23,7 @@ export default function PostPage() {
             <ArrowBackOutlinedIcon />
           </Button>
         </div>
-        <div className={styles.homeColonne}>
+        <div className={styles.homeColonne} id={styles.homePostList}>
           <div className="">
             <PostById />
           </div>

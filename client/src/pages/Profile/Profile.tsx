@@ -20,6 +20,9 @@ export default function Profile() {
                 justifyContent: "center",
                 padding: "1rem",
               }}
+              id={
+                styles.homePostList
+              }
             >
               <Button color="primary" onClick={() => navigate(-1)}>
                 <ArrowBackOutlinedIcon />

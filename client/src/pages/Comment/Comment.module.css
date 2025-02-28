@@ -5,10 +5,11 @@
   height: 100vh;
   color: white;
   overflow: hidden;
-
 }
 .homeColonne {
   border: 0.1px solid rgb(90, 90, 90);
   height: 100vh;
+}
+#homePostList {
   overflow: scroll;
 }
