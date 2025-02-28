@@ -3,6 +3,7 @@ import styles from "./Home.module.css";
 import { useAuth } from "../../context/AuthProvider";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { Button } from "@mui/material";
+import PostsForm from "../../components/Posts/PostsForm";
 
 export default function Home() {
   const { logout } = useAuth();
@@ -24,6 +25,7 @@ export default function Home() {
           </Button>
         </div>
         <div className={styles.homeColonne}>
+          <PostsForm />
           <Posts />
         </div>
         <div className={styles.homeColonne}></div>
