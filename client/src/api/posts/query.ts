@@ -59,6 +59,19 @@ export const GET_POSTS_BY_ID = graphql(`
   }
 `);
 
+export const GET_POSTS_BY_USER = graphql(`
+  query GetPostsByUser {
+    getPostsByUser {
+      id
+      content
+      user {
+        id
+        username
+      }
+    }
+  }
+`);
+
 export const GET_POST_BY_USER = graphql(`
   query GetPostByAuthor($author: String!) {
     getPostByAuthor(author: $author) {

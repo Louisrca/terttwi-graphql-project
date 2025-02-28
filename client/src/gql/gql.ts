@@ -24,10 +24,16 @@ type Documents = {
     "\n  mutation DeleteLike($id: ID!) {\n    deleteLike(id: $id) {\n      success\n    }\n  }\n": typeof types.DeleteLikeDocument,
     "\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n": typeof types.ToggleLikeDocument,
     "\n  mutation CreatePost($content: String!) {\n    createPost(content: $content) {\n      code\n      message\n      success\n      post {\n        user {\n          username\n        }\n      }\n    }\n  }\n": typeof types.CreatePostDocument,
+    "\n  mutation DeletePost($id: ID!) {\n    deletePost(id: $id) {\n      code\n      message\n      success\n    }\n  }\n": typeof types.DeletePostDocument,
+    "\n  mutation UpdatePost($id: ID!, $content: String!) {\n    updatePost(id: $id, content: $content) {\n      code\n      message\n      post {\n        id\n        content\n        userId\n      }\n      success\n    }\n  }\n": typeof types.UpdatePostDocument,
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsDocument,
     "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsByPopularityDocument,
     "\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": typeof types.GetPostDocument,
+<<<<<<< HEAD
     "\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostByAuthorDocument,
+=======
+    "\n  query GetPostsByUser{\n    getPostsByUser {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": typeof types.GetPostsByUserDocument,
+>>>>>>> c6b4643 (Ajout de MyPost)
     "\n  query Query {\n    me {\n      id\n      username\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.QueryDocument,
 };
 const documents: Documents = {
@@ -41,10 +47,16 @@ const documents: Documents = {
     "\n  mutation DeleteLike($id: ID!) {\n    deleteLike(id: $id) {\n      success\n    }\n  }\n": types.DeleteLikeDocument,
     "\n  mutation ToggleLike($postId: ID!) {\n    toggleLike(postId: $postId)\n  }\n": types.ToggleLikeDocument,
     "\n  mutation CreatePost($content: String!) {\n    createPost(content: $content) {\n      code\n      message\n      success\n      post {\n        user {\n          username\n        }\n      }\n    }\n  }\n": types.CreatePostDocument,
+    "\n  mutation DeletePost($id: ID!) {\n    deletePost(id: $id) {\n      code\n      message\n      success\n    }\n  }\n": types.DeletePostDocument,
+    "\n  mutation UpdatePost($id: ID!, $content: String!) {\n    updatePost(id: $id, content: $content) {\n      code\n      message\n      post {\n        id\n        content\n        userId\n      }\n      success\n    }\n  }\n": types.UpdatePostDocument,
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsDocument,
     "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsByPopularityDocument,
     "\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": types.GetPostDocument,
+<<<<<<< HEAD
     "\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostByAuthorDocument,
+=======
+    "\n  query GetPostsByUser{\n    getPostsByUser {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": types.GetPostsByUserDocument,
+>>>>>>> c6b4643 (Ajout de MyPost)
     "\n  query Query {\n    me {\n      id\n      username\n      createdAt\n      updatedAt\n    }\n  }\n": types.QueryDocument,
 };
 
@@ -105,6 +117,14 @@ export function graphql(source: "\n  mutation CreatePost($content: String!) {\n 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  mutation DeletePost($id: ID!) {\n    deletePost(id: $id) {\n      code\n      message\n      success\n    }\n  }\n"): (typeof documents)["\n  mutation DeletePost($id: ID!) {\n    deletePost(id: $id) {\n      code\n      message\n      success\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdatePost($id: ID!, $content: String!) {\n    updatePost(id: $id, content: $content) {\n      code\n      message\n      post {\n        id\n        content\n        userId\n      }\n      success\n    }\n  }\n"): (typeof documents)["\n  mutation UpdatePost($id: ID!, $content: String!) {\n    updatePost(id: $id, content: $content) {\n      code\n      message\n      post {\n        id\n        content\n        userId\n      }\n      success\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -117,7 +137,11 @@ export function graphql(source: "\n  query GetPost($id: String!) {\n    getPost(
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+<<<<<<< HEAD
 export function graphql(source: "\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"];
+=======
+export function graphql(source: "\n  query GetPostsByUser{\n    getPostsByUser {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPostsByUser{\n    getPostsByUser {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n"];
+>>>>>>> c6b4643 (Ajout de MyPost)
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

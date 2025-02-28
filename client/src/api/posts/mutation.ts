@@ -13,3 +13,28 @@ export const CREATE_POST = graphql(`
     }
   }
 `);
+
+export const DELETE_POST = graphql(`
+  mutation DeletePost($id: ID!) {
+    deletePost(id: $id) {
+      code
+      message
+      success
+    }
+  }
+`);
+
+export const UPDATE_POST = graphql(`
+  mutation UpdatePost($id: ID!, $content: String!) {
+    updatePost(id: $id, content: $content) {
+      code
+      message
+      post {
+        id
+        content
+        userId
+      }
+      success
+    }
+  }
+`);
