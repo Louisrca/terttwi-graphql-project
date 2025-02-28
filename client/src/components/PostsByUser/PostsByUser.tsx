@@ -28,12 +28,7 @@ export default function PostsByUser() {
   const [editingPostId, setEditingPostId] = useState<string | null>(null);
 
   if (loading) return <p>Chargement...</p>;
-  if (error)
-    return (
-      <Typography className={styles.noPost}>
-        Tu n'as encore rien posté!{" "}
-      </Typography>
-    );
+  if (error) console.error("Erreur lors de la récupération des posts:", error);
 
   const posts = (data?.getPostsByUser ?? []).filter((post) => post !== null);
 
@@ -102,7 +97,9 @@ export default function PostsByUser() {
           )}
         </>
       ) : (
-        <p>Tu n'as encore rien posté!</p>
+        <Typography className={styles.noPost}>
+          Tu n'as encore rien posté!{" "}
+        </Typography>
       )}
     </div>
   );
