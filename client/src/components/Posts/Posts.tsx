@@ -9,7 +9,6 @@ import CommentIcon from "../../common/svg/CommentIcon";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
-
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Posts() {
@@ -127,17 +126,28 @@ export default function Posts() {
         {posts?.map((post) => (
           <div key={post?.id} className={styles.post}>
             <div>
-              <div onClick={() => navigate(`/post/${post?.id}`)}>
-                <Typography
-                  sx={{
-                    paddingLeft: 2,
-                    marginBottom: 1,
-                    marginTop: 1,
-                    fontWeight: "bold",
-                  }}
-                >
-                  @{post?.user?.username || "Utilisateur inconnu"}
-                </Typography>
+              <Typography
+                sx={{
+                  paddingLeft: 2,
+                  marginBottom: 1,
+                  marginTop: 1,
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  "&:hover": { textDecoration: "underline" },
+                  width: "fit-content",
+                }}
+                onClick={() =>
+                  navigate(
+                    `/profile/${post?.user?.username}?id=${post?.user?.id}`
+                  )
+                }
+              >
+                @{post?.user?.username || "Utilisateur inconnu"}
+              </Typography>
+              <div
+                onClick={() => navigate(`/post/${post?.id}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <Typography sx={{ paddingLeft: 2, marginBottom: 1 }}>
                   {post?.content}
                 </Typography>

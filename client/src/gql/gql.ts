@@ -27,6 +27,7 @@ type Documents = {
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsDocument,
     "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostsByPopularityDocument,
     "\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": typeof types.GetPostDocument,
+    "\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": typeof types.GetPostByAuthorDocument,
     "\n  query Query {\n    me {\n      id\n      username\n      createdAt\n      updatedAt\n    }\n  }\n": typeof types.QueryDocument,
 };
 const documents: Documents = {
@@ -43,6 +44,7 @@ const documents: Documents = {
     "\n  query GetPosts {\n    getPosts {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsDocument,
     "\n  query GetPostsByPopularity($isAsc: Boolean) {\n    getPostsByPopularity(isAsc: $isAsc) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostsByPopularityDocument,
     "\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n": types.GetPostDocument,
+    "\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n": types.GetPostByAuthorDocument,
     "\n  query Query {\n    me {\n      id\n      username\n      createdAt\n      updatedAt\n    }\n  }\n": types.QueryDocument,
 };
 
@@ -112,6 +114,10 @@ export function graphql(source: "\n  query GetPostsByPopularity($isAsc: Boolean)
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPost($id: String!) {\n    getPost(id: $id) {\n      id\n      content\n      user {\n        id\n        username\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPostByAuthor($author: String!) {\n    getPostByAuthor(author: $author) {\n      id\n      content\n      user {\n        id\n        username\n      }\n      numberOflikes\n      isLiked\n      comments {\n        id\n        content\n        user {\n          id\n          username\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

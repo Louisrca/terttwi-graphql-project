@@ -58,3 +58,26 @@ export const GET_POSTS_BY_ID = graphql(`
     }
   }
 `);
+
+export const GET_POST_BY_USER = graphql(`
+  query GetPostByAuthor($author: String!) {
+    getPostByAuthor(author: $author) {
+      id
+      content
+      user {
+        id
+        username
+      }
+      numberOflikes
+      isLiked
+      comments {
+        id
+        content
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`);

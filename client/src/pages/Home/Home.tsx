@@ -24,8 +24,10 @@ export default function Home() {
             <LogoutOutlinedIcon />
           </Button>
         </div>
-        <div className={styles.homeColonne}>
-          <PostsForm />
+        <div className={styles.homeColonne} id={styles.homePostList}>
+          <div className="">
+            <PostsForm />
+          </div>
           <Posts />
         </div>
         <div className={styles.homeColonne}></div>
