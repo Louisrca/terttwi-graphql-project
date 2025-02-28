@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 import TextField from "@mui/material/TextField";
 import styles from "./Posts.module.css";
-import { GET_POSTS } from "../../api/posts/query";
+import { GET_POSTS, GET_POSTS_BY_USER } from "../../api/posts/query";
 import { CREATE_POST } from "../../api/posts/mutation";
 import { useAuth } from "../../context/AuthProvider";
 
@@ -16,7 +16,7 @@ export default function PostsForm() {
         authorization: token ? `Bearer ${token}` : "",
       },
     },
-    refetchQueries: [{ query: GET_POSTS }],
+    refetchQueries: [{ query: GET_POSTS }, { query: GET_POSTS_BY_USER }],
     awaitRefetchQueries: true,
   });
 

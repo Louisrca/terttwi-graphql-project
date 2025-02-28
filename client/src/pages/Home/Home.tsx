@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthProvider";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { Button } from "@mui/material";
 import PostsForm from "../../components/Posts/PostsForm";
-import MyPost from "../../components/Posts/MyPost";
+import PostsByUser from "../../components/PostsByUser/PostsByUser";
 
 export default function Home() {
   const { logout } = useAuth();
@@ -32,7 +32,7 @@ export default function Home() {
           <Posts />
         </div>
         <div className={styles.homeColonne}>
-          <MyPost/>
+          <PostsByUser />
         </div>
       </div>
     </div>
