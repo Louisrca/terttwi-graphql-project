@@ -1,50 +1,43 @@
-# React + TypeScript + Vite
+# **Terttwi 🐦 - Client**  
+> Une application qui permet de publier des posts, de commenter et d'aimer les publications et les commentaires.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 **Description**  
+Terttwi est une plateforme sociale qui te permet d'exprimer tes pensées et d'interagir grâce aux likes et aux commentaires.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 **Technologies utilisées**  
+- **React** (avec TypeScript)  
+- **Apollo Client** (GraphQL)  
+- **Material UI** (MUI) pour le design  
+- **CSS Modules** pour la gestion du style  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## ⚙️ **Installation & Configuration**  
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1️⃣ **Cloner le projet**  
+```sh
+git clone https://github.com/Louisrca/terttwi-graphql-project.git
+cd client
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 2️⃣ **Installer les dépendances**  
+```sh
+npm install
 ```
+
+### 3️⃣ **Lancer le projet**  
+> **⚠️ Assurez-vous que le backend est démarré avec "npm run dev" avant d’exécuter le client !**  
+```sh
+npm run codegen
+npm run dev
+```
+
+---
+
+## 🔑 **Fonctionnalités**  
+✅ **Créer un post** : Publie du contenu en temps réel.  
+✅ **Commenter un post** : Interagis avec les publications.  
+✅ **Liker un post/commentaire** : Montre ton appréciation.  
+✅ **Interface moderne** : Design intuitif grâce à Material UI.  
