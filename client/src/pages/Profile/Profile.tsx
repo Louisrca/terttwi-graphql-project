@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileById from "../../components/ProfileById/ProfileById";
 import styles from "./Profile.module.css";
 import { Button } from "@mui/material";
