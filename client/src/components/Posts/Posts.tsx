@@ -126,20 +126,22 @@ export default function Posts() {
       <div className={styles.postsList}>
         {posts?.map((post) => (
           <div key={post?.id} className={styles.post}>
-            <div onClick={() => navigate(`/post/${post?.id}`)}>
-              <Typography
-                sx={{
-                  paddingLeft: 2,
-                  marginBottom: 1,
-                  marginTop: 1,
-                  fontWeight: "bold",
-                }}
-              >
-                @{post?.user?.username || "Utilisateur inconnu"}
-              </Typography>
-              <Typography sx={{ paddingLeft: 2, marginBottom: 1 }}>
-                {post?.content}
-              </Typography>
+            <div>
+              <div onClick={() => navigate(`/post/${post?.id}`)}>
+                <Typography
+                  sx={{
+                    paddingLeft: 2,
+                    marginBottom: 1,
+                    marginTop: 1,
+                    fontWeight: "bold",
+                  }}
+                >
+                  @{post?.user?.username || "Utilisateur inconnu"}
+                </Typography>
+                <Typography sx={{ paddingLeft: 2, marginBottom: 1 }}>
+                  {post?.content}
+                </Typography>
+              </div>
               <div className={styles.postInteraction}>
                 <div className={styles.postHeart}>
                   <HeartIcon
